@@ -1,48 +1,65 @@
 import type { Table } from "@/models/Table";
 import type { Group as KonvaGroup } from "konva/lib/Group";
 import type { KonvaEventObject } from "konva/lib/Node";
-import { useRef } from "react";
+import { forwardRef } from "react";
 import { Group, Rect } from "react-konva";
-import { SeatComponent } from "../atoms/SeatComponent";
+import { SEAT_RADIUS, SeatComponent } from "../atoms/SeatComponent";
 
 const SEAT_OFFSET = 20;
 
-export const TableComponent = ({
-  table,
-  onDragEnd,
-  onSeatClick,
-  onTableClick,
-  isSelected = false,
-}: TableProps) => {
-  const groupRef = useRef<KonvaGroup>(null);
+export const TableComponent = forwardRef<KonvaGroup, TableProps>(
+  (
+    {
+      table,
+      onDragEnd,
+      onSeatClick,
+      onTableClick,
+      isSelected = false,
+      draggable = true,
+    },
+    ref
+  ) => {
+    return (
+      <Group
+        ref={ref}
+        x={table.x}
+        y={table.y}
+        draggable={draggable}
+        onDragEnd={onDragEnd}
+        onClick={onTableClick}
+        onTap={onTableClick}
+      >
+        {isSelected && (
+          <Rect
+            _useStrictMode
+            x={-SEAT_OFFSET - SEAT_RADIUS}
+            y={-SEAT_OFFSET - SEAT_RADIUS}
+            width={table.width + SEAT_OFFSET * 2 + SEAT_RADIUS * 2}
+            height={table.height + SEAT_OFFSET * 2 + SEAT_RADIUS * 2}
+            fill="rgba(0,0,0,0)"
+            stroke="#3B82F6"
+            strokeWidth={1}
+            dash={[5, 5]}
+          />
+        )}
+        <Rect
+          width={table.width}
+          height={table.height}
+          fill="rgba(0,0,0,0)"
+          stroke="#9CA3AF"
+          strokeWidth={2}
+          cornerRadius={4}
+        />
+        {renderSeats(table, "top", onSeatClick)}
+        {renderSeats(table, "right", onSeatClick)}
+        {renderSeats(table, "bottom", onSeatClick)}
+        {renderSeats(table, "left", onSeatClick)}
+      </Group>
+    );
+  }
+);
 
-  return (
-    <Group
-      ref={groupRef}
-      x={table.x}
-      y={table.y}
-      stroke={isSelected ? "#3B82F6" : "#9CA3AF"}
-      strokeWidth={isSelected ? 3 : 2}
-      draggable
-      onDragEnd={onDragEnd}
-      onClick={onTableClick}
-      onTap={onTableClick}
-    >
-      <Rect
-        width={table.width}
-        height={table.height}
-        fill="transparent"
-        stroke="#9CA3AF"
-        strokeWidth={2}
-        cornerRadius={4}
-      />
-      {renderSeats(table, "top", onSeatClick)}
-      {renderSeats(table, "right", onSeatClick)}
-      {renderSeats(table, "bottom", onSeatClick)}
-      {renderSeats(table, "left", onSeatClick)}
-    </Group>
-  );
-};
+TableComponent.displayName = "TableComponent";
 
 interface TableProps {
   table: Table;
@@ -54,6 +71,7 @@ interface TableProps {
   ) => void;
   onTableClick?: (e: KonvaEventObject<MouseEvent>) => void;
   isSelected?: boolean;
+  draggable?: boolean;
 }
 
 const renderSeats = (
@@ -82,7 +100,12 @@ const renderSeats = (
         tableId={table.id}
         seatIndex={index}
         edge={edge}
-        onSeatClick={onSeatClick}
+        onSeatClick={
+          onSeatClick
+            ? (tableId, seatIndex, edge) =>
+                onSeatClick(tableId, seatIndex, edge)
+            : undefined
+        }
       />
     );
   });

@@ -1,6 +1,6 @@
 import { Circle } from "react-konva";
 
-const SEAT_RADIUS = 6;
+export const SEAT_RADIUS = 6;
 
 interface SeatComponentProps {
   x: number;

@@ -96,12 +96,13 @@ export const SeatingChartEditor = () => {
 
   return (
     <main className="flex flex-1 overflow-hidden">
-      <div
+      <section
         onDrop={handleStageDrop}
         onDragOver={handleStageDragOver}
         className="flex-1"
       >
         <Stage
+          key={Date.now()}
           width={window.innerWidth - 400}
           height={window.innerHeight - 200}
           onClick={handleStageClick}
@@ -119,7 +120,7 @@ export const SeatingChartEditor = () => {
             ))}
           </Layer>
         </Stage>
-      </div>
+      </section>
 
       <SettingsPane />
     </main>
