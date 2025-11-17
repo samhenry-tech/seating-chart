@@ -1,6 +1,7 @@
 import { Circle } from "react-konva";
 
-export const SEAT_RADIUS = 6;
+export const SEAT_RADIUS = 8;
+export const SEAT_STROKE_WIDTH = 2;
 
 interface SeatComponentProps {
   x: number;
@@ -26,10 +27,10 @@ export const SeatComponent = ({
   <Circle
     x={x}
     y={y}
-    radius={SEAT_RADIUS}
+    radius={SEAT_RADIUS - SEAT_STROKE_WIDTH}
     fill="#FFFFFF"
     stroke="#1F2937"
-    strokeWidth={2}
+    strokeWidth={SEAT_STROKE_WIDTH}
     onClick={() => onSeatClick?.(tableId, seatIndex, edge)}
     onTap={() => onSeatClick?.(tableId, seatIndex, edge)}
   />

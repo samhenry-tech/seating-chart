@@ -1,11 +1,12 @@
+import { useSeatingChart } from "@/contexts/SeatingChartContext";
 import type { Table } from "@/models/Table";
 import type { Group as KonvaGroup } from "konva/lib/Group";
 import type { KonvaEventObject } from "konva/lib/Node";
-import { forwardRef } from "react";
+import { forwardRef, useRef } from "react";
 import { Group, Rect } from "react-konva";
 import { SEAT_RADIUS, SeatComponent } from "../atoms/SeatComponent";
 
-const SEAT_OFFSET = 20;
+export const SEAT_OFFSET = 20;
 
 export const TableComponent = forwardRef<KonvaGroup, TableProps>(
   (
@@ -31,7 +32,6 @@ export const TableComponent = forwardRef<KonvaGroup, TableProps>(
       >
         {isSelected && (
           <Rect
-            _useStrictMode
             x={-SEAT_OFFSET - SEAT_RADIUS}
             y={-SEAT_OFFSET - SEAT_RADIUS}
             width={table.width + SEAT_OFFSET * 2 + SEAT_RADIUS * 2}
