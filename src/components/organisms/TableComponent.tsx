@@ -1,65 +1,65 @@
 import type { Table } from "@/models/Table";
-import type { Group as KonvaGroup } from "konva/lib/Group";
 import type { KonvaEventObject } from "konva/lib/Node";
-import { forwardRef } from "react";
 import { Group, Rect } from "react-konva";
 import { SEAT_RADIUS, SeatComponent } from "../atoms/SeatComponent";
 
 export const SEAT_OFFSET = 20;
+const SELECTOR_STROKE_WIDTH = 1;
 
-export const TableComponent = forwardRef<KonvaGroup, TableProps>(
-  (
-    {
-      table,
-      onDragEnd,
-      onSeatClick,
-      onTableClick,
-      isSelected = false,
-      draggable = true,
-    },
-    ref
-  ) => {
-    return (
-      <Group
-        ref={ref}
-        x={table.x}
-        y={table.y}
-        width={table.width + SEAT_OFFSET * 2 + SEAT_RADIUS * 2 - 2}
-        height={table.height + SEAT_OFFSET * 2 + SEAT_RADIUS * 2 - 2}
-        draggable={draggable}
-        name="table-group"
-        onDragEnd={onDragEnd}
-        onClick={onTableClick}
-        onTap={onTableClick}
-      >
-        {isSelected && (
+export const TableComponent = ({
+  table,
+  onDragEnd,
+  onSeatClick,
+  onTableClick,
+  isSelected = false,
+  draggable = true,
+}: TableProps) => {
+  const selectorPosition = getSelectorPosition(table);
+
+  return (
+    <Group
+      className="cursor-grab"
+      x={table.x}
+      y={table.y}
+      draggable={draggable}
+      name="table-group"
+      onDragEnd={onDragEnd}
+      onClick={onTableClick}
+      onTap={onTableClick}
+    >
+      <Rect
+        className="cursor-grab"
+        width={table.width}
+        height={table.height}
+        fill="rgba(0,0,0,0)"
+        stroke="#9CA3AF"
+        strokeWidth={2}
+        cornerRadius={4}
+      />
+      {renderSeats(table, "top", onSeatClick)}
+      {renderSeats(table, "right", onSeatClick)}
+      {renderSeats(table, "bottom", onSeatClick)}
+      {renderSeats(table, "left", onSeatClick)}
+
+      {isSelected && (
+        <>
           <Rect
-            x={-SEAT_OFFSET - SEAT_RADIUS}
-            y={-SEAT_OFFSET - SEAT_RADIUS}
-            width={table.width + SEAT_OFFSET * 2 + SEAT_RADIUS * 2}
-            height={table.height + SEAT_OFFSET * 2 + SEAT_RADIUS * 2}
+            name="selection-indicator"
+            x={selectorPosition.x}
+            y={selectorPosition.y}
+            width={selectorPosition.width}
+            height={selectorPosition.height}
             fill="rgba(0,0,0,0)"
             stroke="#3B82F6"
-            strokeWidth={1}
+            strokeWidth={SELECTOR_STROKE_WIDTH}
             dash={[5, 5]}
           />
-        )}
-        <Rect
-          width={table.width}
-          height={table.height}
-          fill="rgba(0,0,0,0)"
-          stroke="#9CA3AF"
-          strokeWidth={2}
-          cornerRadius={4}
-        />
-        {renderSeats(table, "top", onSeatClick)}
-        {renderSeats(table, "right", onSeatClick)}
-        {renderSeats(table, "bottom", onSeatClick)}
-        {renderSeats(table, "left", onSeatClick)}
-      </Group>
-    );
-  }
-);
+          {getSelectorCorners(selectorPosition)}
+        </>
+      )}
+    </Group>
+  );
+};
 
 TableComponent.displayName = "TableComponent";
 
@@ -166,4 +166,67 @@ const calculateSeatPositions = (
   }
 
   return positions;
+};
+
+const getSelectorPosition = (table: Table) => {
+  const { left, right, top, bottom } = table.seats;
+  const seatOffset = SEAT_OFFSET + SEAT_RADIUS - 1.5;
+
+  const widthAdjustment =
+    [left.length > 0, right.length > 0].filter(Boolean).length * seatOffset;
+  const heightAdjustment =
+    [top.length > 0, bottom.length > 0].filter(Boolean).length * seatOffset;
+  return {
+    x: left.length > 0 ? -seatOffset : 0,
+    y: top.length > 0 ? -seatOffset : 0,
+    width: table.width + widthAdjustment,
+    height: table.height + heightAdjustment,
+  };
+};
+
+interface BoxLocation {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+const CORNER_SIZE = 5;
+const getSelectorCorners = (selectorBox: BoxLocation) => {
+  const x = selectorBox.x - SELECTOR_STROKE_WIDTH / 2;
+  const y = selectorBox.y - SELECTOR_STROKE_WIDTH / 2;
+  const width = selectorBox.width;
+  const height = selectorBox.height;
+  return (
+    <>
+      <Rect
+        x={x}
+        y={y}
+        width={CORNER_SIZE}
+        height={CORNER_SIZE}
+        fill="#3B82F6"
+      />
+      <Rect
+        x={x + width - CORNER_SIZE + 1}
+        y={y}
+        width={CORNER_SIZE}
+        height={CORNER_SIZE}
+        fill="#3B82F6"
+      />
+      <Rect
+        x={x}
+        y={y + height - CORNER_SIZE + 1}
+        width={CORNER_SIZE}
+        height={CORNER_SIZE}
+        fill="#3B82F6"
+      />
+      <Rect
+        x={x + width - CORNER_SIZE + 1}
+        y={y + height - CORNER_SIZE + 1}
+        width={CORNER_SIZE}
+        height={CORNER_SIZE}
+        fill="#3B82F6"
+      />
+    </>
+  );
 };

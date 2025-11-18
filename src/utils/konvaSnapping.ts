@@ -1,6 +1,5 @@
 import Konva from "konva";
-import { SEAT_RADIUS } from "@/components/atoms/SeatComponent";
-import { SEAT_OFFSET } from "@/components/organisms/TableComponent";
+import type { Vector2d } from "konva/lib/types";
 
 const SNAP_THRESHOLD = 10; // pixels
 
@@ -39,11 +38,10 @@ export function getLineGuideStops(
 
 // Get snapping edges of the current object
 export function getObjectSnappingEdges(node: Konva.Node): {
-  vertical: Array<{ guide: number; offset: number; snap: string }>;
-  horizontal: Array<{ guide: number; offset: number; snap: string }>;
+  vertical: { guide: number; offset: number; snap: string }[];
+  horizontal: { guide: number; offset: number; snap: string }[];
 } {
-  const box = node.getClientRect();
-  const absPos = node.absolutePosition();
+  const { box, position: absPos } = getBoxAndPositionForCurrent(node);
 
   return {
     vertical: [
@@ -87,22 +85,22 @@ export function getObjectSnappingEdges(node: Konva.Node): {
 export function getGuides(
   lineGuideStops: { vertical: number[]; horizontal: number[] },
   itemBounds: {
-    vertical: Array<{ guide: number; offset: number; snap: string }>;
-    horizontal: Array<{ guide: number; offset: number; snap: string }>;
+    vertical: { guide: number; offset: number; snap: string }[];
+    horizontal: { guide: number; offset: number; snap: string }[];
   }
 ): Guide[] {
-  const resultV: Array<{
+  const resultV: {
     lineGuide: number;
     diff: number;
     snap: string;
     offset: number;
-  }> = [];
-  const resultH: Array<{
+  }[] = [];
+  const resultH: {
     lineGuide: number;
     diff: number;
     snap: string;
     offset: number;
-  }> = [];
+  }[] = [];
 
   lineGuideStops.vertical.forEach((lineGuide) => {
     itemBounds.vertical.forEach((itemBound) => {
@@ -197,3 +195,45 @@ export function drawGuides(layer: Konva.Layer, guides: Guide[]): void {
   });
 }
 
+const getBoxAndPositionForCurrent = (
+  node: Konva.Node
+): {
+  box: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
+  position: Vector2d;
+} => {
+  const box = node.getClientRect();
+  // if (node instanceof Konva.Group) {
+  //   const selectionIndicator = node.findOne("selection-indicator");
+  //   if (selectionIndicator) {
+  //     return {
+  //       box: {
+  //         x: box.x - 1,
+  //         y: box.y - 1,
+  //         width: box.width - 2,
+  //         height: box.height - 2,
+  //       },
+  //       position: {
+  //         x: node.absolutePosition().x + 1,
+  //         y: node.absolutePosition().y + 1,
+  //       },
+  //     };
+  //   }
+  // }
+  return {
+    box: {
+      x: box.x,
+      y: box.y,
+      width: box.width,
+      height: box.height,
+    },
+    position: {
+      x: node.absolutePosition().x,
+      y: node.absolutePosition().y,
+    },
+  };
+};
