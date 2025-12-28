@@ -1,12 +1,6 @@
 import type { Seating } from "@/models/Seating";
 import type { Table } from "@/models/Table";
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useState,
-  type ReactNode,
-} from "react";
+import { createContext, useCallback, useContext, useState, type ReactNode } from "react";
 
 interface SeatingChartContextType {
   tables: Table[];
@@ -18,16 +12,11 @@ interface SeatingChartContextType {
   updateTable: (id: string, updates: Partial<Table>) => void;
   deleteTable: (id: string) => void;
   updateTablePosition: (id: string, x: number, y: number) => void;
-  updateSeatCount: (
-    id: string,
-    edge: "top" | "right" | "bottom" | "left",
-    count: number
-  ) => void;
+  updateTableSize: (id: string, width: number, height: number) => void;
+  updateSeatCount: (id: string, edge: "top" | "right" | "bottom" | "left", count: number) => void;
 }
 
-const SeatingChartContext = createContext<SeatingChartContextType | undefined>(
-  undefined
-);
+const SeatingChartContext = createContext<SeatingChartContextType | undefined>(undefined);
 
 export const SeatingChartProvider = ({ children }: { children: ReactNode }) => {
   const [tables, setTables] = useState<Table[]>([]);
@@ -41,9 +30,7 @@ export const SeatingChartProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const updateTable = useCallback((id: string, updates: Partial<Table>) => {
-    setTables((prev) =>
-      prev.map((table) => (table.id === id ? { ...table, ...updates } : table))
-    );
+    setTables((prev) => prev.map((table) => (table.id === id ? { ...table, ...updates } : table)));
   }, []);
 
   const deleteTable = useCallback((id: string) => {
@@ -54,6 +41,13 @@ export const SeatingChartProvider = ({ children }: { children: ReactNode }) => {
   const updateTablePosition = useCallback(
     (id: string, x: number, y: number) => {
       updateTable(id, { x, y });
+    },
+    [updateTable]
+  );
+
+  const updateTableSize = useCallback(
+    (id: string, width: number, height: number) => {
+      updateTable(id, { tableWidth: width, height });
     },
     [updateTable]
   );
@@ -109,6 +103,7 @@ export const SeatingChartProvider = ({ children }: { children: ReactNode }) => {
         updateTable,
         deleteTable,
         updateTablePosition,
+        updateTableSize,
         updateSeatCount,
       }}
     >
@@ -120,9 +115,7 @@ export const SeatingChartProvider = ({ children }: { children: ReactNode }) => {
 export const useSeatingChart = () => {
   const context = useContext(SeatingChartContext);
   if (context === undefined) {
-    throw new Error(
-      "useSeatingChart must be used within a SeatingChartProvider"
-    );
+    throw new Error("useSeatingChart must be used within a SeatingChartProvider");
   }
   return context;
 };

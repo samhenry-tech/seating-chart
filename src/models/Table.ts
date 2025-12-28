@@ -1,15 +1,12 @@
-import type { Seating } from "./Seating";
-
 export interface Table {
-  id: string;
   x: number;
   y: number;
-  width: number;
-  height: number;
+  tableWidth: number;
+  tableHeight: number;
   seats: {
-    top: Seating[];
-    right: Seating[];
-    bottom: Seating[];
-    left: Seating[];
+    top: (string | null)[];
+    right: (string | null)[];
+    bottom: (string | null)[];
+    left: (string | null)[];
   };
 }

@@ -1,5 +1,5 @@
 export const Header = () => (
-  <header className="flex w-full items-center border-b border-gray-200 p-4">
-    <h1 className="text-sam-green text-2xl font-semibold">Seating Chart</h1>
+  <header className="flex grow-0 w-full items-center justify-center p-4">
+    <h1 className="text-wedding-red font-heading text-2xl font-semibold">Find Your Seat</h1>
   </header>
 );

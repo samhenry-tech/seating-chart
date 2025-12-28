@@ -1,7 +1,7 @@
 import type { Table } from "@/models/Table";
 
 export const defaultRectangleTable: Omit<Table, "id" | "x" | "y"> = {
-  width: 120,
+  tableWidth: 120,
   height: 200,
   seats: {
     left: Array.from({ length: 4 }, () => ({ hidden: false })),

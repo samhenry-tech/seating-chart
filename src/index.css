@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Eyesome Script";
+  src: url("./fonts/Eyesome Script.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 @theme {
+  --color-wedding-red: #7a0000;
   --color-sam-green: #1c8f7a;
+  --font-heading: "Eyesome Script", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
 }

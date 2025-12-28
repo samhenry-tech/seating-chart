@@ -32,9 +32,9 @@ export const getTableBounds = (table: Table): TableBounds => {
   const padding = SEAT_OFFSET + SEAT_RADIUS;
   const left = table.x - padding;
   const top = table.y - padding;
-  const right = table.x + table.width + padding;
+  const right = table.x + table.tableWidth + padding;
   const bottom = table.y + table.height + padding;
-  const centerX = table.x + table.width / 2;
+  const centerX = table.x + table.tableWidth / 2;
   const centerY = table.y + table.height / 2;
 
   return {
@@ -80,7 +80,7 @@ export const calculateSnap = (
     // Center-to-center snapping (X)
     const centerXDiff = Math.abs(draggingBounds.centerX - otherBounds.centerX);
     if (centerXDiff < SNAP_THRESHOLD) {
-      snappedX = otherBounds.centerX - draggingTable.width / 2;
+      snappedX = otherBounds.centerX - draggingTable.tableWidth / 2;
       snapTargets.push({
         x: otherBounds.centerX,
         bounds: otherBounds,
@@ -113,8 +113,7 @@ export const calculateSnap = (
     // Edge snapping - Right edge
     const rightDiff = Math.abs(draggingBounds.right - otherBounds.right);
     if (rightDiff < SNAP_THRESHOLD) {
-      snappedX =
-        otherBounds.right - draggingTable.width - SEAT_OFFSET - SEAT_RADIUS;
+      snappedX = otherBounds.right - draggingTable.tableWidth - SEAT_OFFSET - SEAT_RADIUS;
       snapTargets.push({
         x: otherBounds.right,
         bounds: otherBounds,
@@ -136,8 +135,7 @@ export const calculateSnap = (
     // Edge snapping - Bottom edge
     const bottomDiff = Math.abs(draggingBounds.bottom - otherBounds.bottom);
     if (bottomDiff < SNAP_THRESHOLD) {
-      snappedY =
-        otherBounds.bottom - draggingTable.height - SEAT_OFFSET - SEAT_RADIUS;
+      snappedY = otherBounds.bottom - draggingTable.height - SEAT_OFFSET - SEAT_RADIUS;
       snapTargets.push({
         y: otherBounds.bottom,
         bounds: otherBounds,
@@ -146,9 +144,7 @@ export const calculateSnap = (
     }
 
     // Cross-edge snapping (dragging left to other right, etc.)
-    const draggingLeftToOtherRight = Math.abs(
-      draggingBounds.left - otherBounds.right
-    );
+    const draggingLeftToOtherRight = Math.abs(draggingBounds.left - otherBounds.right);
     if (draggingLeftToOtherRight < SNAP_THRESHOLD) {
       snappedX = otherBounds.right + SEAT_OFFSET + SEAT_RADIUS;
       snapTargets.push({
@@ -158,12 +154,9 @@ export const calculateSnap = (
       });
     }
 
-    const draggingRightToOtherLeft = Math.abs(
-      draggingBounds.right - otherBounds.left
-    );
+    const draggingRightToOtherLeft = Math.abs(draggingBounds.right - otherBounds.left);
     if (draggingRightToOtherLeft < SNAP_THRESHOLD) {
-      snappedX =
-        otherBounds.left - draggingTable.width - SEAT_OFFSET - SEAT_RADIUS;
+      snappedX = otherBounds.left - draggingTable.tableWidth - SEAT_OFFSET - SEAT_RADIUS;
       snapTargets.push({
         x: otherBounds.left,
         bounds: otherBounds,
@@ -171,9 +164,7 @@ export const calculateSnap = (
       });
     }
 
-    const draggingTopToOtherBottom = Math.abs(
-      draggingBounds.top - otherBounds.bottom
-    );
+    const draggingTopToOtherBottom = Math.abs(draggingBounds.top - otherBounds.bottom);
     if (draggingTopToOtherBottom < SNAP_THRESHOLD) {
       snappedY = otherBounds.bottom + SEAT_OFFSET + SEAT_RADIUS;
       snapTargets.push({
@@ -183,12 +174,9 @@ export const calculateSnap = (
       });
     }
 
-    const draggingBottomToOtherTop = Math.abs(
-      draggingBounds.bottom - otherBounds.top
-    );
+    const draggingBottomToOtherTop = Math.abs(draggingBounds.bottom - otherBounds.top);
     if (draggingBottomToOtherTop < SNAP_THRESHOLD) {
-      snappedY =
-        otherBounds.top - draggingTable.height - SEAT_OFFSET - SEAT_RADIUS;
+      snappedY = otherBounds.top - draggingTable.height - SEAT_OFFSET - SEAT_RADIUS;
       snapTargets.push({
         y: otherBounds.top,
         bounds: otherBounds,

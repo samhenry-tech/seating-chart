@@ -1,9 +1,12 @@
 import { Home } from "./components/pages/Home";
+import { SearchProvider } from "./contexts/SearchContext";
 import { SeatingChartProvider } from "./contexts/SeatingChartContext";
 
 const App = () => (
   <SeatingChartProvider>
-    <Home />
+    <SearchProvider>
+      <Home />
+    </SearchProvider>
   </SeatingChartProvider>
 );
 
