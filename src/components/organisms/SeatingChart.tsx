@@ -1,23 +1,66 @@
 import { useSearch } from "@/contexts/SearchContext";
-import { tables } from "@/data/seatingData";
-import type { Table } from "@/models/Table";
+import { tablesWithSeats } from "@/data/tablesWithSeats";
+import type { TableWithSeats } from "@/models/Table";
+import { getMatchingSeatCoordinates } from "@/utils/searchHelpers";
+import { useEffect, useRef } from "react";
+import { TransformComponent, TransformWrapper, type ReactZoomPanPinchRef } from "react-zoom-pan-pinch";
 import { SearchBox } from "../molecule/SearchBox";
 import { TableComponent } from "./TableComponent";
 
 export const SeatingChart = () => {
   const { search, setSearch } = useSearch();
+  const transformWrapperRef = useRef<ReactZoomPanPinchRef>(null);
+
+  useEffect(() => {
+    const matches = getMatchingSeatCoordinates(tablesWithSeats, search);
+    if (matches.length === 1 && matches[0]) {
+      const [match] = matches;
+      const { centerX, centerY } = match;
+      transformWrapperRef.current?.setTransform(0, -45, 3, 1000, "easeOutCubic");
+      console.log("match", match, centerX, centerY);
+    }
+  }, [search]);
+
+  const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    if (e.target.value.length === 0) {
+      transformWrapperRef.current?.resetTransform(1000, "easeOutCubic");
+    }
+  };
 
   return (
     <>
-      <svg viewBox={getViewBox(tables)} className="m-5 mt-0 w-fit scroll-auto border border-red-500">
-        {tables.map((table, i) => (
-          <TableComponent key={i} table={table} />
-        ))}
-      </svg>
+      <section className="w-full overflow-hidden">
+        <TransformWrapper
+          zoomAnimation={{ animationTime: 5000, animationType: "easeInOutCubic" }}
+          velocityAnimation={{ animationTime: 5000, animationType: "easeInOutCubic" }}
+          alignmentAnimation={{ animationTime: 5000, animationType: "easeInOutCubic" }}
+          ref={transformWrapperRef}
+          centerZoomedOut={true}
+          initialScale={1.3}
+          doubleClick={{ disabled: true }}
+          wheel={{ step: 10 }}
+        >
+          <TransformComponent wrapperClass="!w-full !h-full" contentClass="!origin-top">
+            <svg
+              viewBox={getViewBox(tablesWithSeats)}
+              width="100%"
+              height="100%"
+              className="px-[15vw] py-[15vh]"
+            >
+              <g>
+                {tablesWithSeats.map((table, i) => (
+                  <TableComponent key={i} table={table} />
+                ))}
+              </g>
+            </svg>
+          </TransformComponent>
+        </TransformWrapper>
+      </section>
       <SearchBox
         className="fixed bottom-5 left-1/2 w-[calc(100%-2.5rem)] max-w-md -translate-x-1/2"
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={onSearchChange}
       />
     </>
   );
@@ -28,7 +71,7 @@ const seatRadius = 10;
 const seatExtension = seatOffset + seatRadius;
 const textBuffer = 60; // Buffer for text labels extending beyond seats
 
-const getViewBox = (tables: Table[]) => {
+const getViewBox = (tables: TableWithSeats[]) => {
   if (tables.length === 0) return "0 0 1200 1300";
 
   let minX = Infinity;

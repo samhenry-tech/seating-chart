@@ -1,12 +1,16 @@
-export interface Table {
+import type { Seat } from "./Seat";
+
+export interface Table<T> {
   x: number;
   y: number;
   tableWidth: number;
   tableHeight: number;
   seats: {
-    top: (string | null)[];
-    right: (string | null)[];
-    bottom: (string | null)[];
-    left: (string | null)[];
+    top: (T | null)[];
+    right: (T | null)[];
+    bottom: (T | null)[];
+    left: (T | null)[];
   };
 }
+
+export type TableWithSeats = Table<Seat>;

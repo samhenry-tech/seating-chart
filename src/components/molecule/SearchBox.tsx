@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { HiXMark } from "react-icons/hi2";
 
 export const SearchBox = ({
   className,
@@ -9,17 +10,40 @@ export const SearchBox = ({
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
+  const handleClear = () => {
+    if (onChange) {
+      const syntheticEvent = {
+        target: { value: "" },
+      } as React.ChangeEvent<HTMLInputElement>;
+      onChange(syntheticEvent);
+    }
+  };
+
   return (
-    <input
-      type="text"
-      name="search"
-      placeholder="Enter your name"
+    <div
       className={clsx(
-        className,
-        "focus:ring-sam-green rounded-full border border-gray-200 bg-white px-6 py-3 shadow-lg transition-all hover:shadow-xl focus:border-transparent focus:ring-2 focus:outline-none"
+        "ring-wedding-green-light focus:ring-wedding-green-light flex h-15 items-center rounded-full bg-white shadow-xl ring-1 transition-all hover:shadow-xl focus:border-transparent focus:ring-2 focus:outline-none",
+        className
       )}
-      value={value}
-      onChange={onChange}
-    />
+    >
+      <input
+        type="text"
+        name="search"
+        placeholder="Enter your name"
+        className="ml-4 grow border-0 focus:border-0 focus:ring-0 focus:outline-none"
+        value={value}
+        onChange={onChange}
+      />
+      {
+        <button
+          type="button"
+          onClick={handleClear}
+          className="flex aspect-square h-full grow-0 items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-gray-300"
+          aria-label="Clear search"
+        >
+          <HiXMark className="aspect-square h-[40%] w-auto" />
+        </button>
+      }
+    </div>
   );
 };

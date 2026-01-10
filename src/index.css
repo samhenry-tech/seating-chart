@@ -9,7 +9,9 @@
 
 @theme {
   --color-wedding-red: #7a0000;
-  --color-sam-green: #1c8f7a;
+
+  --color-wedding-green-light: #45cf6c;
+  --color-wedding-green: #007a23;
   --font-heading: "Eyesome Script", sans-serif;
   --font-body: "DM Sans", sans-serif;
 }

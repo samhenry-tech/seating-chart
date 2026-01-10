@@ -1,5 +1,6 @@
 import { seatRadius } from "@/constants";
 import { useSearch } from "@/contexts/SearchContext";
+import { useMemo } from "react";
 
 export const SeatComponent = ({
   key,
@@ -15,6 +16,11 @@ export const SeatComponent = ({
   textPosition: "top" | "bottom" | "left" | "right";
 }) => {
   const { search } = useSearch();
+  const hasSearchMatch = useMemo(
+    () => search && seat?.toLowerCase().includes(search.toLowerCase()),
+    [search, seat]
+  );
+
   if (!seat) return null;
 
   const textX =
@@ -41,45 +47,34 @@ export const SeatComponent = ({
         : textPosition === "left"
           ? "end"
           : "start";
-  const textFontSize = 12;
+
+  const textFontSize = 20;
   const textFill = "#000";
 
-  // Highlight matching text
-  const renderHighlightedText = (text: string, searchTerm: string) => {
-    if (!searchTerm) {
-      return <tspan>{text}</tspan>;
-    }
-
-    const lowerText = text.toLowerCase();
-    const lowerSearch = searchTerm.toLowerCase();
-    const index = lowerText.indexOf(lowerSearch);
-
-    if (index === -1) {
-      return <tspan>{text}</tspan>;
-    }
-
-    const before = text.substring(0, index);
-    const match = text.substring(index, index + searchTerm.length);
-    const after = text.substring(index + searchTerm.length);
-
-    return (
-      <>
-        {before && <tspan>{before}</tspan>}
-        <tspan fill="#1c8f7a" fontWeight="bold">
-          {match}
-        </tspan>
-        {after && <tspan>{after}</tspan>}
-      </>
-    );
-  };
-
   return (
-    <g key={key}>
-      <circle cx={centerX} cy={centerY} r={seatRadius} stroke="#000" strokeWidth="1" fill="none" />
+    <g key={key} strokeWidth="0">
+      <circle
+        cx={centerX}
+        cy={centerY}
+        r={seatRadius}
+        stroke="#000"
+        strokeWidth="1"
+        fill={hasSearchMatch ? "var(--color-wedding-green-light)" : "none"}
+      />
       {seat && (
-        <text x={textX} y={textY} textAnchor={textAnchor} fontSize={textFontSize} fill={textFill}>
-          {renderHighlightedText(seat, search)}
-        </text>
+        <>
+
+
+          <text
+            x={textX}
+            y={textY}
+            textAnchor={textAnchor}
+            fontSize={textFontSize}
+            fill={hasSearchMatch ? "var(--color-wedding-green)" : textFill}
+          >
+            {seat}
+          </text>
+        </>
       )}
     </g>
   );

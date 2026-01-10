@@ -6,7 +6,7 @@ const tableWidth = 75;
 const bridalTableStartX = 245;
 const bridalTableY = 50;
 
-const bridalTables: Table[] = [
+const bridalTables = [
   {
     x: bridalTableStartX,
     y: bridalTableY,
@@ -43,7 +43,7 @@ const secondTableY = firstTableY + tableLength;
 const thirdTableY = secondTableY + tableLength;
 const fourthTableY = thirdTableY + tableLength;
 
-export const tables: Table[] = [
+export const tables: Table<string>[] = [
   ...bridalTables,
   // First
   {
