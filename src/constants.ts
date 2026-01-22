@@ -9,6 +9,11 @@ export const textOffset = 5;
 export const textWidth = 60;
 export const textHeight = 26;
 
+export const horisontalSeatAndText = seatOffset + 2 * seatRadius + textOffset + textWidth;
+export const verticalSeatAndText = seatOffset + 2 * seatRadius + textOffset + textHeight;
+
 export const textFontSize = 20;
 
 export const showHelpers = false;
+
+export const chartPadding = 20;

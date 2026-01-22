@@ -1,17 +1,27 @@
 import {
+  chartPadding,
+  horisontalSeatAndText,
   seatOffset,
   seatRadius,
   tableLength,
   tableMargin,
   tableWidth,
   textHeight,
-  textOffset,
-  textWidth,
 } from "~/constants";
 import type { Table } from "~/models/Table";
 
-const bridalTableStartX = -tableLength;
-const bridalTableY = textHeight + seatOffset + seatRadius * 2;
+const tableSpacing = tableWidth + 2 * (horisontalSeatAndText + tableMargin);
+
+const bridalTableStartX =
+  chartPadding +
+  horisontalSeatAndText +
+  tableSpacing +
+  tableWidth +
+  horisontalSeatAndText +
+  tableMargin -
+  tableLength;
+
+const bridalTableY = chartPadding + textHeight + seatOffset + seatRadius * 2;
 
 const bridalTables = [
   {
@@ -27,7 +37,7 @@ const bridalTables = [
     },
   },
   {
-    x: 0,
+    x: bridalTableStartX + tableLength,
     y: bridalTableY,
     tableWidth: tableLength,
     tableHeight: tableWidth,
@@ -40,14 +50,12 @@ const bridalTables = [
   },
 ];
 
-const seatSpacing = seatOffset + 2 * seatRadius + textOffset + textWidth;
-const tableSpacing = tableWidth + 2 * (seatSpacing + tableMargin);
-const secondColumnX = -tableMargin - seatSpacing - tableWidth;
-const firstColumnX = secondColumnX - tableSpacing;
+const firstColumnX = chartPadding + horisontalSeatAndText;
+const secondColumnX = firstColumnX + tableSpacing;
 const thirdColumnX = secondColumnX + tableSpacing;
 const fourthColumnX = thirdColumnX + tableSpacing;
 
-const firstTableY = 200;
+const firstTableY = chartPadding + 200;
 const secondTableY = firstTableY + tableLength;
 const thirdTableY = secondTableY + tableLength;
 const fourthTableY = thirdTableY + tableLength;
