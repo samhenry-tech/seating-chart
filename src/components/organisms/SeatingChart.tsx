@@ -1,7 +1,7 @@
-import { showHelpers } from "~/constants";
 import { useSearch } from "~/contexts/SearchContext";
 import { tablesWithSeats } from "~/data/tablesWithSeats";
 import { getMatchingSeatCoordinates } from "~/utils/searchHelpers";
+import { showHelpers } from "~/utils/seatingConstants";
 import { getSize } from "~/utils/sizingUtils";
 import { useEffect, useMemo, useRef } from "react";
 import { useWindowSize } from "react-use";
@@ -23,7 +23,7 @@ export const SeatingChart = () => {
   const { search, setSearch } = useSearch();
 
   const intialScale = useMemo(
-    () => Math.min(width / chartSize.width, height / chartSize.height),
+    () => Math.min(width / chartSize.width, (height - 72 - 65) / chartSize.height),
     [width, height]
   );
 
@@ -39,7 +39,6 @@ export const SeatingChart = () => {
         1000,
         "easeInOutCubic"
       );
-      console.log("match", match, centerX, centerY);
     }
   }, [height, marginX, marginY, search, width]);
 
@@ -61,6 +60,7 @@ export const SeatingChart = () => {
           initialScale={intialScale}
           centerOnInit={true}
           maxScale={1}
+          minScale={0.00001}
           centerZoomedOut={true}
           doubleClick={{ disabled: true }}
           wheel={{ step: 10 }}

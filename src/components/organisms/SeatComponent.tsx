@@ -1,5 +1,5 @@
-import { seatRadius, showHelpers, textFontSize, textOffset, textWidth } from "~/constants";
 import { useSearch } from "~/contexts/SearchContext";
+import { seatRadius, showHelpers, textFontSize, textOffset, textWidth } from "~/utils/seatingConstants";
 import { useMemo } from "react";
 
 const textFill = "#000";

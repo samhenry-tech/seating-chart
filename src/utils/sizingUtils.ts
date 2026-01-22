@@ -1,5 +1,5 @@
-import { chartPadding, horisontalSeatAndText, verticalSeatAndText } from "~/constants";
 import type { TableWithSeats } from "~/models/Table";
+import { chartPadding, horisontalSeatAndText, verticalSeatAndText } from "~/utils/seatingConstants";
 
 export const getSize = (tables: TableWithSeats[]) => {
   if (tables.length === 0) throw new Error("No tables provided");

@@ -1,3 +1,4 @@
+import type { Table } from "~/models/Table";
 import {
   chartPadding,
   horisontalSeatAndText,
@@ -7,8 +8,7 @@ import {
   tableMargin,
   tableWidth,
   textHeight,
-} from "~/constants";
-import type { Table } from "~/models/Table";
+} from "~/utils/seatingConstants";
 
 const tableSpacing = tableWidth + 2 * (horisontalSeatAndText + tableMargin);
 

@@ -1,6 +1,6 @@
-import { seatOffset, seatRadius } from "~/constants";
 import type { Seat } from "~/models/Seat";
 import type { Table, TableWithSeats } from "~/models/Table";
+import { seatOffset, seatRadius } from "~/utils/seatingConstants";
 import { tables } from "./seatingData";
 
 type Side = keyof Table<string>["seats"];
