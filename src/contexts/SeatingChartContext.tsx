@@ -1,5 +1,5 @@
-import type { Seating } from "@/models/Seating";
-import type { Table } from "@/models/Table";
+import type { Seating } from "~/models/Seating";
+import type { Table } from "~/models/Table";
 import { createContext, useCallback, useContext, useState, type ReactNode } from "react";
 
 interface SeatingChartContextType {

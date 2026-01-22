@@ -1,4 +1,4 @@
-import { useSeatingChart } from "@/contexts/SeatingChartContext";
+import { useSeatingChart } from "~/contexts/SeatingChartContext";
 import { DefaultCircleTable } from "../atoms/DefaultCircleTable";
 import { DefaultRectangleTable } from "../atoms/DefaultRectangleTable";
 import { Input } from "../atoms/Input";

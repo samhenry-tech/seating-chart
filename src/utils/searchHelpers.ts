@@ -1,5 +1,5 @@
-import { seatOffset, seatRadius } from "@/constants";
-import type { Table, TableWithSeats } from "@/models/Table";
+import { seatOffset, seatRadius } from "~/constants";
+import type { Table, TableWithSeats } from "~/models/Table";
 
 export interface SeatMatch {
   seat: string;

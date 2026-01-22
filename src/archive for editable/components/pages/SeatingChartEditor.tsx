@@ -1,14 +1,14 @@
-import { SettingsPane } from "@/components/organisms/SettingsPane";
-import { TableComponent } from "@/components/organisms/TableComponent";
-import { useSeatingChart } from "@/contexts/SeatingChartContext";
-import { defaultRectangleTable } from "@/data/rectangleTable";
-import type { Table } from "@/models/Table";
+import { SettingsPane } from "~/components/organisms/SettingsPane";
+import { TableComponent } from "~/components/organisms/TableComponent";
+import { useSeatingChart } from "~/contexts/SeatingChartContext";
+import { defaultRectangleTable } from "~/data/rectangleTable";
+import type { Table } from "~/models/Table";
 import {
   drawGuides,
   getGuides,
   getLineGuideStops,
   getObjectSnappingEdges,
-} from "@/utils/konvaSnapping";
+} from "~/utils/konvaSnapping";
 import type Konva from "konva";
 import type { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useRef } from "react";

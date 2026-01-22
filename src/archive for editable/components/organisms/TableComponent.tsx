@@ -1,5 +1,5 @@
-import { useSeatingChart } from "@/contexts/SeatingChartContext";
-import type { Table } from "@/models/Table";
+import { useSeatingChart } from "~/contexts/SeatingChartContext";
+import type { Table } from "~/models/Table";
 import type { KonvaEventObject } from "konva/lib/Node";
 import { useRef, useState } from "react";
 import { Group, Rect } from "react-konva";

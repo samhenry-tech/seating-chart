@@ -1,7 +1,8 @@
-import { useSearch } from "@/contexts/SearchContext";
-import { tablesWithSeats } from "@/data/tablesWithSeats";
-import type { TableWithSeats } from "@/models/Table";
-import { getMatchingSeatCoordinates } from "@/utils/searchHelpers";
+import { showHelpers } from "~/constants";
+import { useSearch } from "~/contexts/SearchContext";
+import { tablesWithSeats } from "~/data/tablesWithSeats";
+import { getMatchingSeatCoordinates } from "~/utils/searchHelpers";
+import { getSize } from "~/utils/sizingUtils";
 import { useEffect, useRef } from "react";
 import { TransformComponent, TransformWrapper, type ReactZoomPanPinchRef } from "react-zoom-pan-pinch";
 import { SearchBox } from "../molecule/SearchBox";
@@ -28,6 +29,9 @@ export const SeatingChart = () => {
     }
   };
 
+  const { width, height } = getSize(tablesWithSeats);
+  const viewBox = `-${width / 2} 0 ${width} ${height}`;
+
   return (
     <>
       <section className="w-full overflow-hidden">
@@ -36,19 +40,14 @@ export const SeatingChart = () => {
           velocityAnimation={{ animationTime: 5000, animationType: "easeInOutCubic" }}
           alignmentAnimation={{ animationTime: 5000, animationType: "easeInOutCubic" }}
           ref={transformWrapperRef}
-          centerZoomedOut={true}
-          initialScale={1.3}
+          initialScale={1}
           doubleClick={{ disabled: true }}
           wheel={{ step: 10 }}
         >
-          <TransformComponent wrapperClass="!w-full !h-full" contentClass="!origin-top">
-            <svg
-              viewBox={getViewBox(tablesWithSeats)}
-              width="100%"
-              height="100%"
-              className="px-[15vw] py-[15vh]"
-            >
+          <TransformComponent wrapperClass="!w-full !h-full">
+            <svg viewBox={viewBox} width={width} height={height} className="px-[15vw] py-[15vh]">
               <g>
+                {showHelpers && <line x1={0} y1={0} x2={0} y2={10000} stroke="black" strokeWidth={1} />}
                 {tablesWithSeats.map((table, i) => (
                   <TableComponent key={i} table={table} />
                 ))}
@@ -64,42 +63,4 @@ export const SeatingChart = () => {
       />
     </>
   );
-};
-
-const seatOffset = 10;
-const seatRadius = 10;
-const seatExtension = seatOffset + seatRadius;
-const textBuffer = 60; // Buffer for text labels extending beyond seats
-
-const getViewBox = (tables: TableWithSeats[]) => {
-  if (tables.length === 0) return "0 0 1200 1300";
-
-  let minX = Infinity;
-  let maxX = -Infinity;
-  let minY = Infinity;
-  let maxY = -Infinity;
-
-  tables.forEach((table) => {
-    // Calculate table bounds
-    const tableLeft = table.x;
-    const tableRight = table.x + table.tableWidth;
-    const tableTop = table.y;
-    const tableBottom = table.y + table.tableHeight;
-
-    // Extend bounds based on which sides have seats (including text buffer)
-    const leftExtend = table.seats.left.length > 0 ? seatExtension + textBuffer : 0;
-    const rightExtend = table.seats.right.length > 0 ? seatExtension + textBuffer : 0;
-    const topExtend = table.seats.top.length > 0 ? seatExtension + textBuffer : 0;
-    const bottomExtend = table.seats.bottom.length > 0 ? seatExtension + textBuffer : 0;
-
-    minX = Math.min(minX, tableLeft - leftExtend);
-    maxX = Math.max(maxX, tableRight + rightExtend);
-    minY = Math.min(minY, tableTop - topExtend);
-    maxY = Math.max(maxY, tableBottom + bottomExtend);
-  });
-
-  const width = maxX - minX;
-  const height = maxY - minY;
-
-  return `0 0 ${width} ${height}`;
 };

@@ -1,10 +1,17 @@
-import type { Table } from "@/models/Table";
+import {
+  seatOffset,
+  seatRadius,
+  tableLength,
+  tableMargin,
+  tableWidth,
+  textHeight,
+  textOffset,
+  textWidth,
+} from "~/constants";
+import type { Table } from "~/models/Table";
 
-const tableLength = 250;
-const tableWidth = 75;
-
-const bridalTableStartX = 245;
-const bridalTableY = 50;
+const bridalTableStartX = -tableLength;
+const bridalTableY = textHeight + seatOffset + seatRadius * 2;
 
 const bridalTables = [
   {
@@ -20,7 +27,7 @@ const bridalTables = [
     },
   },
   {
-    x: bridalTableStartX + tableLength,
+    x: 0,
     y: bridalTableY,
     tableWidth: tableLength,
     tableHeight: tableWidth,
@@ -33,10 +40,12 @@ const bridalTables = [
   },
 ];
 
-const firstColumnX = 75;
-const secondColumnX = firstColumnX + 250;
-const thirdColumnX = secondColumnX + 250;
-const fourthColumnX = thirdColumnX + 250;
+const seatSpacing = seatOffset + 2 * seatRadius + textOffset + textWidth;
+const tableSpacing = tableWidth + 2 * (seatSpacing + tableMargin);
+const secondColumnX = -tableMargin - seatSpacing - tableWidth;
+const firstColumnX = secondColumnX - tableSpacing;
+const thirdColumnX = secondColumnX + tableSpacing;
+const fourthColumnX = thirdColumnX + tableSpacing;
 
 const firstTableY = 200;
 const secondTableY = firstTableY + tableLength;

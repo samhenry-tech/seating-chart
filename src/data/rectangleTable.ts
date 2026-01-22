@@ -1,4 +1,4 @@
-import type { Table } from "@/models/Table";
+import type { Table } from "~/models/Table";
 
 export const defaultRectangleTable: Omit<Table, "id" | "x" | "y"> = {
   tableWidth: 120,

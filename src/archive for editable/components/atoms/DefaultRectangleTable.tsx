@@ -1,4 +1,4 @@
-import { defaultRectangleTable } from "@/data/rectangleTable";
+import { defaultRectangleTable } from "~/data/rectangleTable";
 import { useMemo } from "react";
 import { Group, Layer, Stage } from "react-konva";
 import { SEAT_OFFSET, TableComponent } from "../organisms/TableComponent";

@@ -1,5 +1,5 @@
 import { Line } from "react-konva";
-import type { AlignmentLine } from "@/utils/snapping";
+import type { AlignmentLine } from "~/utils/snapping";
 
 interface AlignmentLinesProps {
   lines: AlignmentLine[];

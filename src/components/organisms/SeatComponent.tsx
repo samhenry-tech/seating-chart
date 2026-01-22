@@ -1,15 +1,15 @@
-import { seatRadius } from "@/constants";
-import { useSearch } from "@/contexts/SearchContext";
+import { seatRadius, showHelpers, textFontSize, textOffset, textWidth } from "~/constants";
+import { useSearch } from "~/contexts/SearchContext";
 import { useMemo } from "react";
 
+const textFill = "#000";
+
 export const SeatComponent = ({
-  key,
   centerX,
   centerY,
   seat,
   textPosition,
 }: {
-  key: string;
   centerX: number;
   centerY: number;
   seat: string | null;
@@ -20,55 +20,38 @@ export const SeatComponent = ({
     () => search && seat?.toLowerCase().includes(search.toLowerCase()),
     [search, seat]
   );
+  const { textX, textY, anchor } = getTextCoordinates(textPosition, centerX, centerY);
 
   if (!seat) return null;
 
-  const textX =
-    textPosition === "top"
-      ? centerX
-      : textPosition === "bottom"
-        ? centerX
-        : textPosition === "left"
-          ? centerX - seatRadius - 5
-          : centerX + seatRadius + 5;
-  const textY =
-    textPosition === "top"
-      ? centerY - seatRadius - 5
-      : textPosition === "bottom"
-        ? centerY + seatRadius + 12
-        : textPosition === "left"
-          ? centerY + 4
-          : centerY + 4;
-  const textAnchor =
-    textPosition === "top"
-      ? "middle"
-      : textPosition === "bottom"
-        ? "middle"
-        : textPosition === "left"
-          ? "end"
-          : "start";
-
-  const textFontSize = 20;
-  const textFill = "#000";
-
   return (
-    <g key={key} strokeWidth="0">
+    <g strokeWidth="0">
       <circle
         cx={centerX}
         cy={centerY}
-        r={seatRadius}
+        r={seatRadius - 1}
         stroke="#000"
         strokeWidth="1"
         fill={hasSearchMatch ? "var(--color-wedding-green-light)" : "none"}
       />
       {seat && (
         <>
-
+          {showHelpers && (
+            <rect
+              x={anchor === "middle" ? textX - textWidth / 2 : anchor === "end" ? textX - textWidth : textX}
+              y={textY - textFontSize / 2}
+              width={textWidth}
+              height={textFontSize}
+              stroke="black"
+              strokeWidth="1"
+            />
+          )}
 
           <text
             x={textX}
             y={textY}
-            textAnchor={textAnchor}
+            textAnchor={anchor}
+            dominantBaseline="middle"
             fontSize={textFontSize}
             fill={hasSearchMatch ? "var(--color-wedding-green)" : textFill}
           >
@@ -78,4 +61,37 @@ export const SeatComponent = ({
       )}
     </g>
   );
+};
+
+const getTextCoordinates = (
+  textPosition: "top" | "bottom" | "left" | "right",
+  centerX: number,
+  centerY: number
+) => {
+  if (textPosition === "top") {
+    return {
+      textX: centerX,
+      textY: centerY - seatRadius - textOffset - textFontSize / 2,
+      anchor: "middle" as const,
+    };
+  }
+  if (textPosition === "bottom") {
+    return {
+      textX: centerX,
+      textY: centerY + seatRadius + textOffset + textFontSize / 2,
+      anchor: "middle" as const,
+    };
+  }
+  if (textPosition === "left") {
+    return {
+      textX: centerX - seatRadius - textOffset,
+      textY: centerY,
+      anchor: "end" as const,
+    };
+  }
+  return {
+    textX: centerX + seatRadius + textOffset,
+    textY: centerY,
+    anchor: "start" as const,
+  };
 };

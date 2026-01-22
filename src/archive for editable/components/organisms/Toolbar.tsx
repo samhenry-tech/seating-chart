@@ -1,5 +1,5 @@
-import { Button } from "@/components/atoms/Button";
-import { useSeatingChart } from "@/contexts/SeatingChartContext";
+import { Button } from "~/components/atoms/Button";
+import { useSeatingChart } from "~/contexts/SeatingChartContext";
 
 interface ToolbarProps {
   isAddingTable: boolean;
