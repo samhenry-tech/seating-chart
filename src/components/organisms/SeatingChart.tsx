@@ -44,8 +44,16 @@ export const SeatingChart = () => {
           doubleClick={{ disabled: true }}
           wheel={{ step: 10 }}
         >
-          <TransformComponent wrapperClass="!w-full !h-full">
-            <svg viewBox={viewBox} width={width} height={height} className="px-[15vw] py-[15vh]">
+          <TransformComponent
+            wrapperClass="!w-full !h-full border border-blue-300"
+            contentClass="border border-red-300"
+          >
+            <svg
+              viewBox={viewBox}
+              width={width}
+              height={height}
+              className="mx-[15vw] my-[15vh] border border-green-300"
+            >
               <g>
                 {showHelpers && <line x1={0} y1={0} x2={0} y2={10000} stroke="black" strokeWidth={1} />}
                 {tablesWithSeats.map((table, i) => (
