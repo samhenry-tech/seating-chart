@@ -1,4 +1,4 @@
-import type { Table, TableWithSeats } from "~/models/Table";
+import type { TableWithSeats } from "~/models/Table";
 import { chartPadding, seatOffset, seatRadius } from "~/utils/seatingConstants";
 
 export interface SeatMatch {

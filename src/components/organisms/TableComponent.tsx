@@ -1,5 +1,4 @@
-import type { Table, TableWithSeats } from "~/models/Table";
-import { seatOffset, seatRadius } from "~/utils/seatingConstants";
+import type {  TableWithSeats } from "~/models/Table";
 import { SeatComponent } from "./SeatComponent";
 
 export const TableComponent = ({ table }: { table: TableWithSeats }) => {
