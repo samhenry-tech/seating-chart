@@ -1,4 +1,4 @@
-import type {  TableWithSeats } from "~/models/Table";
+import type { TableWithSeats } from "~/models/Table";
 import { SeatComponent } from "./SeatComponent";
 
 export const TableComponent = ({ table }: { table: TableWithSeats }) => {

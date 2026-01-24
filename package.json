@@ -8,7 +8,7 @@
     "format": "prettier --write .",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "start": "vite --open"
+    "start": "vite --open --host"
   },
   "dependencies": {
     "clsx": "^2.1.1",
