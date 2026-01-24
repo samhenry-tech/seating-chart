@@ -5,17 +5,23 @@ import { showHelpers } from "~/utils/seatingConstants";
 import { getSize } from "~/utils/sizingUtils";
 import { useEffect, useMemo, useRef } from "react";
 import { useWindowSize } from "react-use";
+import { useViewportSize } from "react-window-size-listener";
 import { TransformComponent, TransformWrapper, type ReactZoomPanPinchRef } from "react-zoom-pan-pinch";
 import { SearchBox } from "../molecule/SearchBox";
 import { TableComponent } from "./TableComponent";
 
 const chartMargin = 50;
 
+const maxScale = 1;
+
 const chartSize = getSize(tablesWithSeats);
 const viewBox = `0 0 ${chartSize.width} ${chartSize.height}`;
 
+const width = window.innerWidth;
+const height = document.documentElement.clientHeight;
+
 export const SeatingChart = () => {
-  const { width, height } = useWindowSize();
+  // const { height: viewportHeight } = useViewportSize();
   const marginX = width * (chartMargin / 100);
   const marginY = height * (chartMargin / 100);
 
@@ -31,14 +37,16 @@ export const SeatingChart = () => {
     const matches = getMatchingSeatCoordinates(tablesWithSeats, search);
     if (matches.length === 1 && matches[0]) {
       const [match] = matches;
-      const { centerX, centerY } = match;
+      const { centerX, centerY, seat } = match;
+      setSearch(seat);
       transformWrapperRef.current?.setTransform(
         -centerX - marginX + width / 2,
         -centerY - marginY + height / 2,
-        1,
+        maxScale,
         1000,
         "easeInOutCubic"
       );
+      blurActiveElement();
     }
   }, [height, marginX, marginY, search, width]);
 
@@ -51,6 +59,12 @@ export const SeatingChart = () => {
 
   return (
     <>
+      {showHelpers && (
+        <>
+          <div className="absolute left-1/2 z-200 box-border h-full w-px border" />
+          <div className="absolute top-1/2 z-200 box-border h-px w-full border" />
+        </>
+      )}
       <section className="w-full overflow-hidden">
         <TransformWrapper
           zoomAnimation={{ animationTime: 5000, animationType: "easeInOutCubic" }}
@@ -59,7 +73,7 @@ export const SeatingChart = () => {
           ref={transformWrapperRef}
           initialScale={intialScale}
           centerOnInit={true}
-          maxScale={1}
+          maxScale={maxScale}
           minScale={0.00001}
           centerZoomedOut={true}
           doubleClick={{ disabled: true }}
@@ -92,3 +106,6 @@ export const SeatingChart = () => {
     </>
   );
 };
+
+const blurActiveElement = () =>
+  document.activeElement instanceof HTMLElement && document.activeElement.blur();

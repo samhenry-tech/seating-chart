@@ -19,8 +19,8 @@ export const getMatchingSeatCoordinates = (tables: TableWithSeats[], search: str
       if (seat?.name.toLowerCase().includes(lowerSearch)) {
         const numSeats = table.seats.top.length;
         const spacing = table.tableWidth / numSeats;
-        const centerX = table.x + chartPadding + spacing / 2 + spacing * i;
-        const centerY = table.y + chartPadding - (seatOffset + seatRadius);
+        const centerX = table.x + spacing / 2 + spacing * i;
+        const centerY = table.y - (seatOffset + seatRadius);
         matches.push({ seat: seat.name, centerX, centerY });
       }
     });
@@ -30,8 +30,8 @@ export const getMatchingSeatCoordinates = (tables: TableWithSeats[], search: str
       if (seat?.name.toLowerCase().includes(lowerSearch)) {
         const numSeats = table.seats.right.length;
         const spacing = table.tableHeight / numSeats;
-        const centerX = table.x + chartPadding + table.tableWidth + (seatOffset + seatRadius);
-        const centerY = table.y + chartPadding + spacing / 2 + spacing * i;
+        const centerX = table.x + table.tableWidth + (seatOffset + seatRadius);
+        const centerY = table.y + spacing / 2 + spacing * i;
         matches.push({ seat: seat.name, centerX, centerY });
       }
     });

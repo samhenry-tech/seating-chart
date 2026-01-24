@@ -14,6 +14,6 @@ export const verticalSeatAndText = seatOffset + 2 * seatRadius + textOffset + te
 
 export const textFontSize = 20;
 
-export const showHelpers = false;
+export const showHelpers = true;
 
 export const chartPadding = 20;
