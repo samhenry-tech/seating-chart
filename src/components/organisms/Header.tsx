@@ -1,3 +1,4 @@
+import { useIsKeyboardOpen } from "~/hooks/useIsKeyboardOpen";
 import { loadDelay, loadDuration, loadTransitionDuration } from "~/utils/timingConstants";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
@@ -6,6 +7,7 @@ import { ProgressBar } from "../molecule/ProgressBar";
 export const Header = () => {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [isTransitionFinished, setIsTransitionFinished] = useState(false);
+  const isKeyboardOpen = useIsKeyboardOpen();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -39,7 +41,7 @@ export const Header = () => {
         className={clsx(
           "transition-height fixed inset-0 z-60 flex w-full items-center justify-center p-4 ease-in-out",
           loadDuration,
-          isInitialLoad ? "h-full" : "h-18",
+          isInitialLoad ? "h-full" : !isKeyboardOpen ? "h-18" : "h-0",
           isTransitionFinished && "bg-white"
         )}
       >

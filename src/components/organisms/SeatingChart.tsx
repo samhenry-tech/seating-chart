@@ -38,7 +38,7 @@ export const SeatingChart = () => {
     if (matches.length === 1 && matches[0]) {
       const [match] = matches;
       const { centerX, centerY, seat } = match;
-      setSearch(seat);
+      // setSearch(seat);
       transformWrapperRef.current?.setTransform(
         -centerX - marginX + width / 2,
         -centerY - marginY + height / 2,
@@ -46,7 +46,7 @@ export const SeatingChart = () => {
         1000,
         "easeInOutCubic"
       );
-      blurActiveElement();
+      // blurActiveElement();
     }
   }, [height, marginX, marginY, search, width]);
 
@@ -99,7 +99,7 @@ export const SeatingChart = () => {
         </TransformWrapper>
       </section>
       <SearchBox
-        className="fixed bottom-5 left-1/2 w-[calc(100%-2.5rem)] max-w-md -translate-x-1/2"
+        className="absolute bottom-5 left-1/2 z-200 w-[calc(100%-2.5rem)] max-w-md -translate-x-1/2"
         value={search}
         onChange={onSearchChange}
       />
