@@ -39,10 +39,10 @@ export const SeatingChart = () => {
     if (matches.length === 1 && matches[0]) {
       const [match] = matches;
       const { centerX, centerY, seat } = match;
-      setSearch(seat);
+      const seatOffset = getSeatOffset(centerX, centerY, chartSize.width, chartSize.height);
       centeredPinchZoomRef.current?.setPosition({
-        x: -centerX - marginX + width / 2,
-        y: -centerY - marginY + height / 2,
+        x: -seatOffset.x * maxScale,
+        y: -seatOffset.y * maxScale,
         scale: maxScale,
       });
       // blurActiveElement();
@@ -132,3 +132,10 @@ export const SeatingChart = () => {
 
 const blurActiveElement = () =>
   document.activeElement instanceof HTMLElement && document.activeElement.blur();
+
+const getSeatOffset = (seatX: number, seatY: number, chartWidth: number, chartHeight: number) => {
+  return {
+    x: seatX - chartWidth / 2,
+    y: seatY - chartHeight / 2,
+  };
+};

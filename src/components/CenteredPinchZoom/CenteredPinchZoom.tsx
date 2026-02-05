@@ -34,9 +34,12 @@ export const CenteredPinchZoom = forwardRef<CenteredPinchZoomHandle, Props>(func
 
   useImperativeHandle(ref, () => ({
     setPosition(next: Position) {
-      setPositionState(
-        clampPosition(next, minZoom, maxZoom, containerSizeRef.current, contentSizeRef.current)
-      );
+      setPositionState((p) => {
+        if (p.scale === next.scale && p.x === next.x && p.y === next.y) {
+          return p;
+        }
+        return clampPosition(next, minZoom, maxZoom, containerSizeRef.current, contentSizeRef.current);
+      });
     },
     resetPosition() {
       const next = { x: 0, y: 0, scale: initialZoom };
@@ -56,24 +59,23 @@ export const CenteredPinchZoom = forwardRef<CenteredPinchZoomHandle, Props>(func
   };
 
   return (
-    <div ref={containerRef} className={className} style={{ position: "relative", overflow: "hidden" }}>
-      <CenteredPinchZoomFrame
-        className={clsx(className, "relative touch-none select-none")}
-        onPositionChange={onPositionChange}
+    <CenteredPinchZoomFrame
+      ref={containerRef}
+      className={clsx(className, "relative touch-none select-none")}
+      onPositionChange={onPositionChange}
+    >
+      <div
+        ref={contentRef}
+        className="absolute cursor-grab active:cursor-grabbing"
+        style={{
+          left: `calc(50% + ${position.x}px)`,
+          top: `calc(50% + ${position.y}px)`,
+          transform: `translate(-50%, -50%) scale(${position.scale})`,
+        }}
       >
-        <div
-          ref={contentRef}
-          className="absolute cursor-grab active:cursor-grabbing"
-          style={{
-            left: `calc(50% + ${position.x}px)`,
-            top: `calc(50% + ${position.y}px)`,
-            transform: `translate(-50%, -50%) scale(${position.scale})`,
-          }}
-        >
-          {children}
-        </div>
-      </CenteredPinchZoomFrame>
-    </div>
+        {children}
+      </div>
+    </CenteredPinchZoomFrame>
   );
 });
 
