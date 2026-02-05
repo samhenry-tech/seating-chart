@@ -6,7 +6,8 @@ import { getSize } from "~/utils/sizingUtils";
 import { useEffect, useMemo, useRef } from "react";
 // import { useWindowSize } from "react-use";
 // import { useViewportSize } from "react-window-size-listener";
-import { TransformComponent, TransformWrapper, type ReactZoomPanPinchRef } from "react-zoom-pan-pinch";
+// import { TransformComponent, TransformWrapper, type ReactZoomPanPinchRef } from "react-zoom-pan-pinch";
+import { CenteredPinchZoom, type CenteredPinchZoomHandle } from "../CenteredPinchZoom/CenteredPinchZoom";
 import { SearchBox } from "../molecule/SearchBox";
 import { TableComponent } from "./TableComponent";
 
@@ -25,7 +26,7 @@ export const SeatingChart = () => {
   const marginX = width * (chartMargin / 100);
   const marginY = height * (chartMargin / 100);
 
-  const transformWrapperRef = useRef<ReactZoomPanPinchRef>(null);
+  const centeredPinchZoomRef = useRef<CenteredPinchZoomHandle>(null);
   const { search, setSearch } = useSearch();
 
   const intialScale = useMemo(
@@ -38,14 +39,12 @@ export const SeatingChart = () => {
     if (matches.length === 1 && matches[0]) {
       const [match] = matches;
       const { centerX, centerY, seat } = match;
-      // setSearch(seat);
-      transformWrapperRef.current?.setTransform(
-        -centerX - marginX + width / 2,
-        -centerY - marginY + height / 2,
-        maxScale,
-        1000,
-        "easeInOutCubic"
-      );
+      setSearch(seat);
+      centeredPinchZoomRef.current?.setPosition({
+        x: -centerX - marginX + width / 2,
+        y: -centerY - marginY + height / 2,
+        scale: maxScale,
+      });
       // blurActiveElement();
     }
   }, [height, marginX, marginY, search, width]);
@@ -53,7 +52,7 @@ export const SeatingChart = () => {
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     if (e.target.value.length === 0) {
-      transformWrapperRef.current?.centerView(intialScale, 1000, "easeInOutCubic");
+      centeredPinchZoomRef.current?.resetPosition();
     }
   };
 
@@ -66,7 +65,31 @@ export const SeatingChart = () => {
         </>
       )}
       <section className="w-full overflow-hidden">
-        <TransformWrapper
+        <CenteredPinchZoom
+          ref={centeredPinchZoomRef}
+          className="h-full w-full"
+          initialZoom={intialScale}
+          maxZoom={maxScale}
+          minZoom={0.00001}
+        >
+          <svg
+            className="border border-red-400"
+            viewBox={viewBox}
+            width={chartSize.width}
+            height={chartSize.height}
+            // style={{
+            //   margin: `${marginY}px ${marginX}px`,
+            // }}
+          >
+            <g>
+              {showHelpers && <line x1={0} y1={0} x2={0} y2={10000} stroke="black" strokeWidth={1} />}
+              {tablesWithSeats.map((table, i) => (
+                <TableComponent key={i} table={table} />
+              ))}
+            </g>
+          </svg>
+        </CenteredPinchZoom>
+        {/* <TransformWrapper
           zoomAnimation={{ animationTime: 5000, animationType: "easeInOutCubic" }}
           velocityAnimation={{ animationTime: 5000, animationType: "easeInOutCubic" }}
           alignmentAnimation={{ animationTime: 5000, animationType: "easeInOutCubic" }}
@@ -96,7 +119,7 @@ export const SeatingChart = () => {
               </g>
             </svg>
           </TransformComponent>
-        </TransformWrapper>
+        </TransformWrapper> */}
       </section>
       <SearchBox
         className="absolute bottom-5 left-1/2 z-200 w-[calc(100%-2.5rem)] max-w-md -translate-x-1/2"

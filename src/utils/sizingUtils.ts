@@ -7,7 +7,6 @@ export const getSize = (tables: TableWithSeats[]) => {
   const minAndMax = tables.reduce(
     (minAndMax, table) => {
       const tableMinX = table.x - (table.seats.left.length ? horisontalSeatAndText : 0);
-
       const tableMaxX = table.x + table.tableWidth + (table.seats.right.length ? horisontalSeatAndText : 0);
       const tableMinY = table.y - (table.seats.top.length ? verticalSeatAndText : 0);
       const tableMaxY = table.y + table.tableHeight + (table.seats.bottom.length ? verticalSeatAndText : 0);
@@ -22,8 +21,8 @@ export const getSize = (tables: TableWithSeats[]) => {
     { minX: 0, maxX: 0, minY: 0, maxY: 0 }
   );
 
-  const width = minAndMax.maxX - minAndMax.minX + chartPadding * 2;
-  const height = minAndMax.maxY - minAndMax.minY + chartPadding * 2;
+  const width = minAndMax.maxX - minAndMax.minX + chartPadding;
+  const height = minAndMax.maxY - minAndMax.minY + chartPadding;
 
   return { width, height };
 };
