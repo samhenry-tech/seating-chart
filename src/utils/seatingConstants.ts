@@ -6,7 +6,7 @@ export const seatOffset = 10;
 export const seatRadius = 10;
 
 export const textOffset = 5;
-export const textWidth = 60;
+export const textWidth = 80;
 export const textHeight = 26;
 
 export const horisontalSeatAndText = seatOffset + 2 * seatRadius + textOffset + textWidth;

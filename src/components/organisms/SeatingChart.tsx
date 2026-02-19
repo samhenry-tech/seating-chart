@@ -5,9 +5,6 @@ import { showHelpers } from "~/utils/seatingConstants";
 import { getSize } from "~/utils/sizingUtils";
 import clsx from "clsx";
 import { useEffect, useMemo, useRef } from "react";
-// import { useWindowSize } from "react-use";
-// import { useViewportSize } from "react-window-size-listener";
-// import { TransformComponent, TransformWrapper, type ReactZoomPanPinchRef } from "react-zoom-pan-pinch";
 import { CenteredPinchZoom, type CenteredPinchZoomHandle } from "../CenteredPinchZoom/CenteredPinchZoom";
 import { SearchBox } from "../molecule/SearchBox";
 import { TableComponent } from "./TableComponent";
@@ -23,7 +20,6 @@ const width = window.innerWidth;
 const height = document.documentElement.clientHeight;
 
 export const SeatingChart = () => {
-  // const { height: viewportHeight } = useViewportSize();
   const marginX = width * (chartMargin / 100);
   const marginY = height * (chartMargin / 100);
 
@@ -46,7 +42,6 @@ export const SeatingChart = () => {
         y: -seatOffset.y * maxScale,
         scale: maxScale,
       });
-      // blurActiveElement();
     }
   }, [height, marginX, marginY, search, width]);
 

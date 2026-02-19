@@ -25,12 +25,12 @@ const bridalTableY = chartPadding + textHeight + seatOffset + seatRadius * 2;
 
 const bridalTables = [
   {
-    x: bridalTableStartX,
+    x: bridalTableStartX - 20,
     y: bridalTableY,
-    tableWidth: tableLength,
+    tableWidth: tableLength + 20,
     tableHeight: tableWidth,
     seats: {
-      top: ["Tom", "Carter", "Dan", "Sam"],
+      top: ["Tom F", "Carter", "Dan", "Sam"],
       right: [],
       bottom: [],
       left: [],
@@ -39,10 +39,10 @@ const bridalTables = [
   {
     x: bridalTableStartX + tableLength,
     y: bridalTableY,
-    tableWidth: tableLength,
+    tableWidth: tableLength + 20,
     tableHeight: tableWidth,
     seats: {
-      top: ["Soph", "Emily", "Jess", "Yaz"],
+      top: ["Soph", "Emily W", "Jess H", "Yaz"],
       right: [],
       bottom: [],
       left: [],
@@ -70,9 +70,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["right1", "right2", "right3", "right4"],
+      right: ["Lachie", "Sean M", "Andy B", "Elissa"],
       bottom: [],
-      left: ["left1", "left2", "left3", "left4"],
+      left: ["Zahlia", "Beth M", "Rob", "Nat"],
     },
   },
   {
@@ -82,9 +82,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["right1", "right2", "right3", "right4"],
+      right: ["Matilda", "Brayden", "Tim", "Jake"],
       bottom: [],
-      left: ["left1", "left2", "left3", "left4"],
+      left: ["Mary", "Beth C", "Nick", "Sean W"],
     },
   },
   {
@@ -94,9 +94,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["right1", "right2", "right3", "right4"],
+      right: ["Matt", "Emma", "Kaz", "Lucy"],
       bottom: [],
-      left: ["left1", "left2", "left3", "left4"],
+      left: ["Lauren", "Disney", "Ollie", "Kat"],
     },
   },
   // Second
@@ -107,9 +107,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["right1", "right2", "right3", "right4"],
+      right: ["Xave", "Sarah", "Ty", "Steve H"],
       bottom: [],
-      left: ["left1", "left2", "left3", "left4"],
+      left: ["Eli", "Sammi", "Lucy", "Paul"],
     },
   },
   {
@@ -119,9 +119,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["right1", "right2", "right3", "right4"],
+      right: ["Cathy H", "Kath H", "Phil", "Sue"],
       bottom: [],
-      left: ["left1", "left2", "left3", "left4"],
+      left: ["Chris", "Ruth", "Mandy", "Dave G"],
     },
   },
   {
@@ -131,9 +131,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["right1", "right2", "right3", "right4"],
+      right: ["David B", "Libby", "Jen P", "Martin"],
       bottom: [],
-      left: ["left1", "left2", "left3", "left4"],
+      left: ["Jonathan", "Michelle B", "Cath C", "Alan"],
     },
   },
   {
@@ -143,9 +143,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["right1", "right2", "right3", "right4"],
+      right: ["Bec", "Tod", "Michael", "Ashleigh"],
       bottom: [],
-      left: ["left1", "left2", "left3", "left4"],
+      left: ["Alex S", "Emily", "Christina", "Jackson"],
     },
   },
   // Third
@@ -156,9 +156,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["right1", "right2", "right3", "right4"],
+      right: ["Phillip", "Ann", "Caryn", "David L"],
       bottom: [],
-      left: ["left1", "left2", "left3", "left4"],
+      left: ["Peter", "Tine", "Graham", "Robyn"],
     },
   },
   {
@@ -168,9 +168,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["right1", "right2", "right3", "right4"],
+      right: ["Linda", "Steve B", "Jon B", "Jen B"],
       bottom: [],
-      left: ["left1", "left2", "left3", "left4"],
+      left: ["Lynn V", "David V", "Andy V", "Kathryn"],
     },
   },
   {
@@ -180,9 +180,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["right1", "right2", "right3", "right4"],
+      right: ["Tash Y", "Hannah", "Rohan"],
       bottom: [],
-      left: ["left1", "left2", "left3", "left4"],
+      left: ["Jac D", "Carien", "Jason"],
     },
   },
   {
@@ -192,9 +192,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["right1", "right2", "right3", "right4"],
+      right: ["Claire", "Anna", "Kate"],
       bottom: [],
-      left: ["left1", "left2", "left3", "left4"],
+      left: ["Josh", "Loz", "Erin F"],
     },
   },
   // Fourth
@@ -205,9 +205,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["right1", "right2", "right3", "right4"],
+      right: ["Michelle W", "Bernie", "Dale", "Ben"],
       bottom: [],
-      left: ["left1", "left2", "left3", "left4"],
+      left: ["Bek R", "Kirsty", "Simon", "Sandy"],
     },
   },
   {
@@ -217,9 +217,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["right1", "right2", "right3", "right4"],
+      right: ["Taren", "Charlie", "Jess B", "Beth P"],
       bottom: [],
-      left: ["left1", "left2", "left3", "left4"],
+      left: ["Amanda", "Courtney", "Alex W", "Jordan"],
     },
   },
   {
@@ -229,9 +229,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["right1", "right2", "right3", "right4"],
+      right: ["Sara", "Daniel T", "Blake", "Tahlia"],
       bottom: [],
-      left: ["left1", "left2", "left3", "left4"],
+      left: ["Arkie", "Tara", "Maddie", "Richard"],
     },
   },
 ];
