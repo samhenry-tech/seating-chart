@@ -39,7 +39,7 @@ export const SeatingChart = () => {
     const matches = getMatchingSeatCoordinates(tablesWithSeats, search);
     if (matches.length === 1 && matches[0]) {
       const [match] = matches;
-      const { centerX, centerY, seat } = match;
+      const { centerX, centerY } = match;
       const seatOffset = getSeatOffset(centerX, centerY, chartSize.width, chartSize.height);
       centeredPinchZoomRef.current?.setPosition({
         x: -seatOffset.x * maxScale,

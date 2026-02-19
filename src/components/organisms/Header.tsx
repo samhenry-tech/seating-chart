@@ -1,4 +1,3 @@
-import { useIsKeyboardOpen } from "~/hooks/useIsKeyboardOpen";
 import { loadDelay, loadDuration, loadTransitionDuration } from "~/utils/timingConstants";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
