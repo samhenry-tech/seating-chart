@@ -30,7 +30,7 @@ export const Header = () => {
       {!isTransitionFinished && (
         <div
           className={clsx(
-            "pointer-events-none fixed inset-0 z-50 bg-white transition-opacity ease-in-out",
+            "pointer-events-none fixed inset-0 z-300 bg-white transition-opacity ease-in-out",
             loadDuration,
             isInitialLoad ? "opacity-100" : "opacity-0"
           )}
@@ -40,7 +40,7 @@ export const Header = () => {
       <header className="h-18">
         <div
           className={clsx(
-            "transition-height fixed inset-0 z-70 flex w-full items-center justify-center overflow-visible p-4 ease-in-out",
+            "transition-height fixed inset-0 z-300 flex w-full items-center justify-center overflow-visible p-4 ease-in-out",
             loadDuration,
             isInitialLoad ? "h-full" : "h-18",
             isTransitionFinished && "bg-white"

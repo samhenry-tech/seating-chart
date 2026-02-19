@@ -3,6 +3,7 @@ import { tablesWithSeats } from "~/data/tablesWithSeats";
 import { getMatchingSeatCoordinates } from "~/utils/searchHelpers";
 import { showHelpers } from "~/utils/seatingConstants";
 import { getSize } from "~/utils/sizingUtils";
+import clsx from "clsx";
 import { useEffect, useMemo, useRef } from "react";
 // import { useWindowSize } from "react-use";
 // import { useViewportSize } from "react-window-size-listener";
@@ -75,13 +76,10 @@ export const SeatingChart = () => {
           animationEasing="ease-in-out"
         >
           <svg
-            className="border border-red-400"
+            className={clsx(showHelpers && "border border-red-400")}
             viewBox={viewBox}
             width={chartSize.width}
             height={chartSize.height}
-            // style={{
-            //   margin: `${marginY}px ${marginX}px`,
-            // }}
           >
             <g>
               {showHelpers && <line x1={0} y1={0} x2={0} y2={10000} stroke="black" strokeWidth={1} />}
@@ -91,49 +89,15 @@ export const SeatingChart = () => {
             </g>
           </svg>
         </CenteredPinchZoom>
-        {/* <TransformWrapper
-          zoomAnimation={{ animationTime: 5000, animationType: "easeInOutCubic" }}
-          velocityAnimation={{ animationTime: 5000, animationType: "easeInOutCubic" }}
-          alignmentAnimation={{ animationTime: 5000, animationType: "easeInOutCubic" }}
-          ref={transformWrapperRef}
-          initialScale={intialScale}
-          centerOnInit={true}
-          maxScale={maxScale}
-          minScale={0.00001}
-          centerZoomedOut={true}
-          doubleClick={{ disabled: true }}
-          wheel={{ step: 10 }}
-        >
-          <TransformComponent wrapperClass="!w-full !h-full">
-            <svg
-              viewBox={viewBox}
-              width={chartSize.width}
-              height={chartSize.height}
-              style={{
-                margin: `${marginY}px ${marginX}px`,
-              }}
-            >
-              <g>
-                {showHelpers && <line x1={0} y1={0} x2={0} y2={10000} stroke="black" strokeWidth={1} />}
-                {tablesWithSeats.map((table, i) => (
-                  <TableComponent key={i} table={table} />
-                ))}
-              </g>
-            </svg>
-          </TransformComponent>
-        </TransformWrapper> */}
       </section>
       <SearchBox
-        className="absolute bottom-5 left-1/2 z-200 w-[calc(100%-2.5rem)] max-w-md -translate-x-1/2"
+        className="absolute bottom-5 left-1/2 z-100 w-[calc(100%-2.5rem)] max-w-md -translate-x-1/2"
         value={search}
         onChange={onSearchChange}
       />
     </>
   );
 };
-
-const blurActiveElement = () =>
-  document.activeElement instanceof HTMLElement && document.activeElement.blur();
 
 const getSeatOffset = (seatX: number, seatY: number, chartWidth: number, chartHeight: number) => {
   return {
