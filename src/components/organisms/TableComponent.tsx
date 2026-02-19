@@ -6,16 +6,13 @@ export const TableComponent = ({ table }: { table: TableWithSeats }) => {
   return (
     <g stroke="#000" strokeWidth="1" fill="none">
       <rect x={table.x} y={table.y} width={table.tableWidth} height={table.tableHeight} />
-      <text
-        x={table.x + table.tableWidth / 2}
-        y={table.y + table.tableHeight / 2}
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fontSize={textFontSize}
-        fill="#000"
+      <g
+        transform={`translate(${table.x + table.tableWidth / 2}, ${table.y + table.tableHeight / 2}) rotate(${table.rotate ? 90 : 0})`}
       >
-        {table.name}
-      </text>
+        <text x={0} y={0} textAnchor="middle" dominantBaseline="middle" fontSize={textFontSize} fill="#000">
+          {table.name}
+        </text>
+      </g>
       {table.seats.top.map(
         (seat, i) =>
           seat && (

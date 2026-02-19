@@ -2,6 +2,7 @@ import type { Seat } from "./Seat";
 
 export interface Table<T> {
   name: string;
+  rotate?: boolean;
   x: number;
   y: number;
   tableWidth: number;

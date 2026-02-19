@@ -67,6 +67,7 @@ export const tables: Table<string>[] = [
   // First
   {
     name: "Table 1.1",
+    rotate: true,
     x: firstColumnX,
     y: firstTableY,
     tableWidth: tableWidth,
@@ -80,6 +81,7 @@ export const tables: Table<string>[] = [
   },
   {
     name: "Table 1.2",
+    rotate: true,
     x: firstColumnX,
     y: secondTableY,
     tableWidth: tableWidth,
@@ -93,6 +95,7 @@ export const tables: Table<string>[] = [
   },
   {
     name: "Table 1.3",
+    rotate: true,
     x: firstColumnX,
     y: thirdTableY,
     tableWidth: tableWidth,
@@ -107,6 +110,7 @@ export const tables: Table<string>[] = [
   // Second
   {
     name: "Table 2.1",
+    rotate: true,
     x: secondColumnX,
     y: firstTableY,
     tableWidth: tableWidth,
@@ -120,6 +124,7 @@ export const tables: Table<string>[] = [
   },
   {
     name: "Table 2.2",
+    rotate: true,
     x: secondColumnX,
     y: secondTableY,
     tableWidth: tableWidth,
@@ -133,6 +138,7 @@ export const tables: Table<string>[] = [
   },
   {
     name: "Table 2.3",
+    rotate: true,
     x: secondColumnX,
     y: thirdTableY,
     tableWidth: tableWidth,
@@ -146,6 +152,7 @@ export const tables: Table<string>[] = [
   },
   {
     name: "Table 2.4",
+    rotate: true,
     x: secondColumnX,
     y: fourthTableY,
     tableWidth: tableWidth,
@@ -160,6 +167,7 @@ export const tables: Table<string>[] = [
   // Third
   {
     name: "Table 3.1",
+    rotate: true,
     x: thirdColumnX,
     y: firstTableY,
     tableWidth: tableWidth,
@@ -173,6 +181,7 @@ export const tables: Table<string>[] = [
   },
   {
     name: "Table 3.2",
+    rotate: true,
     x: thirdColumnX,
     y: secondTableY,
     tableWidth: tableWidth,
@@ -186,6 +195,7 @@ export const tables: Table<string>[] = [
   },
   {
     name: "Table 3.3",
+    rotate: true,
     x: thirdColumnX,
     y: thirdTableY,
     tableWidth: tableWidth,
@@ -199,6 +209,7 @@ export const tables: Table<string>[] = [
   },
   {
     name: "Table 3.4",
+    rotate: true,
     x: thirdColumnX,
     y: fourthTableY,
     tableWidth: tableWidth,
@@ -213,6 +224,7 @@ export const tables: Table<string>[] = [
   // Fourth
   {
     name: "Table 4.1",
+    rotate: true,
     x: fourthColumnX,
     y: firstTableY,
     tableWidth: tableWidth,
@@ -226,6 +238,7 @@ export const tables: Table<string>[] = [
   },
   {
     name: "Table 4.2",
+    rotate: true,
     x: fourthColumnX,
     y: secondTableY,
     tableWidth: tableWidth,
@@ -239,6 +252,7 @@ export const tables: Table<string>[] = [
   },
   {
     name: "Table 4.3",
+    rotate: true,
     x: fourthColumnX,
     y: thirdTableY,
     tableWidth: tableWidth,
