@@ -1,4 +1,4 @@
-import type { Position } from "./types";
+import type { EasingType, Position } from "./types";
 
 export const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
@@ -38,3 +38,42 @@ export const clampPosition = (
   const y = maxY >= minY ? clamp(next.y, minY, maxY) : 0;
   return { x, y, scale };
 };
+
+/** Cubic bezier with P0=(0,0), P1=(x1,y1), P2=(x2,y2), P3=(1,1). Returns y for given x (t). */
+function cubicBezier(x1: number, y1: number, x2: number, y2: number): (t: number) => number {
+  const sampleX = (s: number) =>
+    3 * (1 - s) * (1 - s) * s * x1 + 3 * (1 - s) * s * s * x2 + s * s * s;
+  const sampleY = (s: number) =>
+    3 * (1 - s) * (1 - s) * s * y1 + 3 * (1 - s) * s * s * y2 + s * s * s;
+
+  return (t: number) => {
+    if (t <= 0) return 0;
+    if (t >= 1) return 1;
+    let lo = 0;
+    let hi = 1;
+    for (let i = 0; i < 16; i++) {
+      const mid = (lo + hi) / 2;
+      const x = sampleX(mid);
+      if (x < t) lo = mid;
+      else hi = mid;
+    }
+    const s = (lo + hi) / 2;
+    return sampleY(s);
+  };
+}
+
+const EASINGS: Record<EasingType, (t: number) => number> = {
+  linear: cubicBezier(0, 0, 1, 1),
+  ease: cubicBezier(0.25, 0.1, 0.25, 1),
+  "ease-in": cubicBezier(0.42, 0, 1, 1),
+  "ease-out": cubicBezier(0, 0, 0.58, 1),
+  "ease-in-out": cubicBezier(0.42, 0, 0.58, 1),
+};
+
+export const applyEasing = (t: number, type: EasingType): number => EASINGS[type](t);
+
+export const lerpPosition = (from: Position, to: Position, t: number): Position => ({
+  x: from.x + (to.x - from.x) * t,
+  y: from.y + (to.y - from.y) * t,
+  scale: from.scale + (to.scale - from.scale) * t,
+});

@@ -71,6 +71,8 @@ export const SeatingChart = () => {
           initialZoom={intialScale}
           maxZoom={maxScale}
           minZoom={0.00001}
+          animationDuration={1000}
+          animationEasing="ease-in-out"
         >
           <svg
             className="border border-red-400"
