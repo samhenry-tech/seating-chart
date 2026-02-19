@@ -1,10 +1,21 @@
 import type { TableWithSeats } from "~/models/Table";
+import { textFontSize } from "~/utils/seatingConstants";
 import { SeatComponent } from "./SeatComponent";
 
 export const TableComponent = ({ table }: { table: TableWithSeats }) => {
   return (
     <g stroke="#000" strokeWidth="1" fill="none">
       <rect x={table.x} y={table.y} width={table.tableWidth} height={table.tableHeight} />
+      <text
+        x={table.x + table.tableWidth / 2}
+        y={table.y + table.tableHeight / 2}
+        textAnchor="middle"
+        dominantBaseline="middle"
+        fontSize={textFontSize}
+        fill="#000"
+      >
+        {table.name}
+      </text>
       {table.seats.top.map(
         (seat, i) =>
           seat && (

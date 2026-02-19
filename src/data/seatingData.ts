@@ -25,6 +25,7 @@ const bridalTableY = chartPadding + textHeight + seatOffset + seatRadius * 2;
 
 const bridalTables = [
   {
+    name: "Bridal",
     x: bridalTableStartX - 20,
     y: bridalTableY,
     tableWidth: tableLength + 20,
@@ -37,6 +38,7 @@ const bridalTables = [
     },
   },
   {
+    name: "Table",
     x: bridalTableStartX + tableLength,
     y: bridalTableY,
     tableWidth: tableLength + 20,
@@ -64,6 +66,7 @@ export const tables: Table<string>[] = [
   ...bridalTables,
   // First
   {
+    name: "Table 1.1",
     x: firstColumnX,
     y: firstTableY,
     tableWidth: tableWidth,
@@ -76,6 +79,7 @@ export const tables: Table<string>[] = [
     },
   },
   {
+    name: "Table 1.2",
     x: firstColumnX,
     y: secondTableY,
     tableWidth: tableWidth,
@@ -88,6 +92,7 @@ export const tables: Table<string>[] = [
     },
   },
   {
+    name: "Table 1.3",
     x: firstColumnX,
     y: thirdTableY,
     tableWidth: tableWidth,
@@ -101,6 +106,7 @@ export const tables: Table<string>[] = [
   },
   // Second
   {
+    name: "Table 2.1",
     x: secondColumnX,
     y: firstTableY,
     tableWidth: tableWidth,
@@ -113,6 +119,7 @@ export const tables: Table<string>[] = [
     },
   },
   {
+    name: "Table 2.2",
     x: secondColumnX,
     y: secondTableY,
     tableWidth: tableWidth,
@@ -125,6 +132,7 @@ export const tables: Table<string>[] = [
     },
   },
   {
+    name: "Table 2.3",
     x: secondColumnX,
     y: thirdTableY,
     tableWidth: tableWidth,
@@ -137,6 +145,7 @@ export const tables: Table<string>[] = [
     },
   },
   {
+    name: "Table 2.4",
     x: secondColumnX,
     y: fourthTableY,
     tableWidth: tableWidth,
@@ -150,6 +159,7 @@ export const tables: Table<string>[] = [
   },
   // Third
   {
+    name: "Table 3.1",
     x: thirdColumnX,
     y: firstTableY,
     tableWidth: tableWidth,
@@ -162,6 +172,7 @@ export const tables: Table<string>[] = [
     },
   },
   {
+    name: "Table 3.2",
     x: thirdColumnX,
     y: secondTableY,
     tableWidth: tableWidth,
@@ -174,6 +185,7 @@ export const tables: Table<string>[] = [
     },
   },
   {
+    name: "Table 3.3",
     x: thirdColumnX,
     y: thirdTableY,
     tableWidth: tableWidth,
@@ -186,6 +198,7 @@ export const tables: Table<string>[] = [
     },
   },
   {
+    name: "Table 3.4",
     x: thirdColumnX,
     y: fourthTableY,
     tableWidth: tableWidth,
@@ -199,6 +212,7 @@ export const tables: Table<string>[] = [
   },
   // Fourth
   {
+    name: "Table 4.1",
     x: fourthColumnX,
     y: firstTableY,
     tableWidth: tableWidth,
@@ -211,6 +225,7 @@ export const tables: Table<string>[] = [
     },
   },
   {
+    name: "Table 4.2",
     x: fourthColumnX,
     y: secondTableY,
     tableWidth: tableWidth,
@@ -223,6 +238,7 @@ export const tables: Table<string>[] = [
     },
   },
   {
+    name: "Table 4.3",
     x: fourthColumnX,
     y: thirdTableY,
     tableWidth: tableWidth,

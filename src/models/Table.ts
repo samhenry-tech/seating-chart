@@ -1,6 +1,7 @@
 import type { Seat } from "./Seat";
 
 export interface Table<T> {
+  name: string;
   x: number;
   y: number;
   tableWidth: number;
