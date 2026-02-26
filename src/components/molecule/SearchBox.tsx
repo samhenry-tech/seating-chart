@@ -38,6 +38,7 @@ export const SearchBox = ({
         <input
           type="text"
           name="search"
+          autoComplete="off"
           placeholder="Enter your name"
           className="ml-4 grow border-0 focus:border-0 focus:ring-0 focus:outline-none"
           value={value}
