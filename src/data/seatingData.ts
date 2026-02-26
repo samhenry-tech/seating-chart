@@ -219,7 +219,7 @@ export const tables: Table<string>[] = [
       top: [],
       right: ["Claire", "Anna", "Kate"],
       bottom: [],
-      left: ["Glen", "Loz", "Erin F"],
+      left: ["Glenn", "Loz", "Erin F"],
     },
   },
   // Fourth
