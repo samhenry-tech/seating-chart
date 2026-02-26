@@ -4,7 +4,7 @@ import { getMatchingSeatCoordinates } from "~/utils/searchHelpers";
 import { showHelpers } from "~/utils/seatingConstants";
 import { getSize } from "~/utils/sizingUtils";
 import clsx from "clsx";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { CenteredPinchZoom, type CenteredPinchZoomHandle } from "../CenteredPinchZoom/CenteredPinchZoom";
 import { SearchBox } from "../molecule/SearchBox";
 import { TableComponent } from "./TableComponent";
@@ -26,16 +26,28 @@ export const SeatingChart = () => {
   const centeredPinchZoomRef = useRef<CenteredPinchZoomHandle>(null);
   const { search, setSearch } = useSearch();
 
+  const matches = useMemo(
+    () => (search ? getMatchingSeatCoordinates(tablesWithSeats, search) : null),
+    [search]
+  );
+
+  const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
+
+  useEffect(() => setCurrentMatchIndex(0), [search]);
+
   const intialScale = useMemo(
     () => Math.min(width / chartSize.width, (height - 72 - 65) / chartSize.height),
     [width, height]
   );
 
+  //TODO -Figure out what to do when your focusedMatch is removed for current
+  //TODO - figure out how to adjust index down when changing
+
+  const focusedMatch = useMemo(() => matches?.[currentMatchIndex], [matches, currentMatchIndex]);
+
   useEffect(() => {
-    const matches = getMatchingSeatCoordinates(tablesWithSeats, search);
-    if (matches.length === 1 && matches[0]) {
-      const [match] = matches;
-      const { centerX, centerY } = match;
+    if (focusedMatch) {
+      const { centerX, centerY } = focusedMatch;
       const seatOffset = getSeatOffset(centerX, centerY, chartSize.width, chartSize.height);
       centeredPinchZoomRef.current?.setPosition({
         x: -seatOffset.x * maxScale,
@@ -43,7 +55,7 @@ export const SeatingChart = () => {
         scale: maxScale,
       });
     }
-  }, [height, marginX, marginY, search, width]);
+  }, [focusedMatch]);
 
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -51,6 +63,8 @@ export const SeatingChart = () => {
       centeredPinchZoomRef.current?.resetPosition();
     }
   };
+
+  const onNext = () => setCurrentMatchIndex((p) => (p !== (matches?.length ?? 0) - 1 ? p + 1 : 0));
 
   return (
     <>
@@ -66,7 +80,7 @@ export const SeatingChart = () => {
           className="h-full w-full"
           initialZoom={intialScale}
           maxZoom={maxScale}
-          minZoom={0.00001}
+          minZoom={intialScale - 0.05}
           animationDuration={1000}
           animationEasing="ease-in-out"
         >
@@ -89,6 +103,9 @@ export const SeatingChart = () => {
         className="absolute bottom-5 left-1/2 z-100 w-[calc(100%-2.5rem)] max-w-md -translate-x-1/2"
         value={search}
         onChange={onSearchChange}
+        current={currentMatchIndex}
+        totalCount={matches?.length ?? null}
+        onNext={onNext}
       />
     </>
   );

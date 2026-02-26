@@ -17,7 +17,7 @@ export const SeatComponent = ({
 }) => {
   const { search } = useSearch();
   const hasSearchMatch = useMemo(
-    () => search && seat?.toLowerCase().includes(search.toLowerCase()),
+    () => search && seat?.toLowerCase().startsWith(search.toLowerCase()),
     [search, seat]
   );
   const { textX, textY, anchor } = getTextCoordinates(textPosition, centerX, centerY);

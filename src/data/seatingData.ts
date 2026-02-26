@@ -22,13 +22,14 @@ const bridalTableStartX =
   tableLength;
 
 const bridalTableY = chartPadding + textHeight + seatOffset + seatRadius * 2;
+const bridalTableAdjustment = 40;
 
 const bridalTables = [
   {
     name: "Bridal",
-    x: bridalTableStartX - 20,
+    x: bridalTableStartX - bridalTableAdjustment,
     y: bridalTableY,
-    tableWidth: tableLength + 20,
+    tableWidth: tableLength + bridalTableAdjustment,
     tableHeight: tableWidth,
     seats: {
       top: ["Tom F", "Carter", "Dan", "Sam"],
@@ -41,7 +42,7 @@ const bridalTables = [
     name: "Table",
     x: bridalTableStartX + tableLength,
     y: bridalTableY,
-    tableWidth: tableLength + 20,
+    tableWidth: tableLength + bridalTableAdjustment,
     tableHeight: tableWidth,
     seats: {
       top: ["Soph", "Emily W", "Jess H", "Yaz"],
@@ -102,7 +103,7 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["Matt", "Emma", "Kaz", "Lucy"],
+      right: ["Matt", "Emma", "Kaz", "Lucy F"],
       bottom: [],
       left: ["Lauren", "Disney", "Ollie", "Kat"],
     },
@@ -119,7 +120,7 @@ export const tables: Table<string>[] = [
       top: [],
       right: ["Xave", "Sarah", "Ty", "Steve H"],
       bottom: [],
-      left: ["Eli", "Sammi", "Lucy", "Paul"],
+      left: ["Eli", "Sammi", "Lucy S", "Paul"],
     },
   },
   {
@@ -161,7 +162,7 @@ export const tables: Table<string>[] = [
       top: [],
       right: ["Bec", "Tod", "Michael", "Ashleigh"],
       bottom: [],
-      left: ["Alex S", "Emily", "Christina", "Jackson"],
+      left: ["Alex S", "Emily C", "Christina", "Jackson"],
     },
   },
   // Third
