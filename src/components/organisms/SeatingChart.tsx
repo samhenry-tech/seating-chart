@@ -9,7 +9,7 @@ import { CenteredPinchZoom, type CenteredPinchZoomHandle } from "../CenteredPinc
 import { SearchBox } from "../molecule/SearchBox";
 import { TableComponent } from "./TableComponent";
 
-const chartMargin = 50;
+// const chartMargin = 50;
 
 const maxScale = 1;
 
@@ -20,8 +20,8 @@ const width = window.innerWidth;
 const height = document.documentElement.clientHeight;
 
 export const SeatingChart = () => {
-  const marginX = width * (chartMargin / 100);
-  const marginY = height * (chartMargin / 100);
+  // const marginX = width * (chartMargin / 100);
+  // const marginY = height * (chartMargin / 100);
 
   const centeredPinchZoomRef = useRef<CenteredPinchZoomHandle>(null);
   const { search, setSearch } = useSearch();
