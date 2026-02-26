@@ -45,7 +45,7 @@ const bridalTables = [
     tableWidth: tableLength + bridalTableAdjustment,
     tableHeight: tableWidth,
     seats: {
-      top: ["Soph", "Emily W", "Jess H", "Yaz"],
+      top: ["Soph", "Emily W", "Yaz", "Jess H"],
       right: [],
       bottom: [],
       left: [],
@@ -205,7 +205,7 @@ export const tables: Table<string>[] = [
       top: [],
       right: ["Tash Y", "Hannah", "Rohan"],
       bottom: [],
-      left: ["Jac D", "Carien", "Jason"],
+      left: ["Jac D", "Carien", "Jason", "Josh"],
     },
   },
   {
@@ -219,7 +219,7 @@ export const tables: Table<string>[] = [
       top: [],
       right: ["Claire", "Anna", "Kate"],
       bottom: [],
-      left: ["Josh", "Loz", "Erin F"],
+      left: ["Glen", "Loz", "Erin F"],
     },
   },
   // Fourth
@@ -260,9 +260,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["Sara", "Daniel T", "Blake", "Tahlia"],
+      right: ["Sara", "Blake", "Tahlia"],
       bottom: [],
-      left: ["Arkie", "Tara", "Maddie", "Richard"],
+      left: ["Richard", "Maddie", "Daniel T"],
     },
   },
 ];
