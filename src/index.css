@@ -16,10 +16,15 @@
   --font-body: "DM Sans", sans-serif;
 }
 
+html {
+  overflow: hidden;
+  /* height set in JS from visual viewport so keyboard resize works on iOS/Android */
+}
+
 body {
   font-family: var(--font-body);
-  position: fixed; /* lock it in place */
-  inset: 0; /* top:0, right:0, bottom:0, left:0 */
-  overflow: hidden; /* no scrollbars ever */
+  position: fixed; /* no document scroll on Chrome Android when keyboard opens */
+  inset: 0;
+  overflow: hidden;
   width: 100%;
 }

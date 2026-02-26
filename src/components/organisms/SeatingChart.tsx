@@ -100,7 +100,7 @@ export const SeatingChart = () => {
         </CenteredPinchZoom>
       </section>
       <SearchBox
-        className="absolute bottom-5 left-1/2 z-100 w-[calc(100%-2.5rem)] max-w-md -translate-x-1/2"
+        className="absolute bottom-5 left-1/2 z-100 w-[calc(100%-2rem)] max-w-md -translate-x-1/2"
         value={search}
         onChange={onSearchChange}
         current={currentMatchIndex}

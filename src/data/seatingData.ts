@@ -134,7 +134,7 @@ export const tables: Table<string>[] = [
       top: [],
       right: ["Cathy H", "Kath H", "Phil", "Sue"],
       bottom: [],
-      left: ["Chris", "Ruth", "Mandy", "Dave G"],
+      left: ["Chris", "Ruth", "Dave G"],
     },
   },
   {

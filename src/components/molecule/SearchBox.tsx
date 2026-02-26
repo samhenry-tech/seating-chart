@@ -29,10 +29,10 @@ export const SearchBox = ({
   const clampedCurrent = clamp(current + 1, 0, totalCount ?? 0);
 
   return (
-    <div className={clsx("flex h-15 gap-3", className)}>
+    <div className={clsx("flex h-15 min-w-0 gap-3", className)}>
       <div
         className={clsx(
-          "ring-wedding-green-light focus:ring-wedding-green-light flex h-full grow items-center gap-1 rounded-full bg-white shadow-xl ring-1 transition-all hover:shadow-xl focus:border-transparent focus:ring-2 focus:outline-none"
+          "ring-wedding-green-light focus:ring-wedding-green-light flex h-full min-w-0 shrink grow items-center gap-1 rounded-full bg-white shadow-xl ring-1 transition-all hover:shadow-xl focus:border-transparent focus:ring-2 focus:outline-none"
         )}
       >
         <input
@@ -40,7 +40,7 @@ export const SearchBox = ({
           name="search"
           autoComplete="off"
           placeholder="Enter your name"
-          className="ml-4 grow border-0 focus:border-0 focus:ring-0 focus:outline-none"
+          className="ml-4 min-w-0 grow border-0 focus:border-0 focus:ring-0 focus:outline-none"
           value={value}
           onChange={onChange}
         />
