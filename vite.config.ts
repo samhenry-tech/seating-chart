@@ -1,10 +1,44 @@
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    VitePWA({
+      registerType: "autoUpdate",
+      workbox: {
+        // Precache built assets so the app shell works offline.
+        // (Include fonts + webmanifest; these were missing before.)
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,json,webmanifest,woff,woff2,ttf,otf,eot}"],
+        // Cache Google Fonts so they keep working offline after the first load.
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/css/i,
+            handler: "StaleWhileRevalidate",
+            options: {
+              cacheName: "google-fonts-stylesheets",
+            },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\//i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "google-fonts-webfonts",
+              expiration: {
+                maxEntries: 30,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+              },
+            },
+          },
+        ],
+      },
+      manifest: false, // use existing
+    }),
+  ],
   resolve: {
     alias: {
       "~": "/src",
