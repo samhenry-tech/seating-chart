@@ -132,9 +132,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["Cathy H", "Kath H", "Phil", "Sue"],
+      right: ["Cathy H", "Kath H", "Phil", "David B"],
       bottom: [],
-      left: ["Chris", "Ruth", "Dave G"],
+      left: ["Chris", "Ruth", "Jonathan", "Michelle B"],
     },
   },
   {
@@ -146,9 +146,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["David B", "Libby", "Jen P", "Martin"],
+      right: ["Libby", "Jen P", "Martin", "Bec"],
       bottom: [],
-      left: ["Jonathan", "Michelle B", "Cath C", "Alan"],
+      left: ["Cath C", "Alan", "Alex S"],
     },
   },
   {
@@ -160,9 +160,9 @@ export const tables: Table<string>[] = [
     tableHeight: tableLength,
     seats: {
       top: [],
-      right: ["Bec", "Tod", "Michael", "Ashleigh"],
+      right: ["Tod", "Michael", "Ashleigh"],
       bottom: [],
-      left: ["Alex S", "Emily C", "Christina", "Jackson"],
+      left: ["Emily C", "Christina", "Jackson"],
     },
   },
   // Third
